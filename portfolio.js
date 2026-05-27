@@ -518,14 +518,14 @@ function renderBlog() {
   const page  = POSTS.slice(start, start + BLOG_PER_PAGE);
   el.innerHTML = page.map(p => `
     <article class="blog-card">
-      <div class="blog-card__image-wrap">
+      <a href="${p.url || '#'}" class="blog-card__image-wrap" target="_blank" rel="noopener noreferrer">
         ${p.img
           ? `<img src="${p.img}" alt="${p.title[currentLang]}" loading="lazy" decoding="async">`
           : `<div class="ph"><span class="ph__label">${t('ph.blog')}</span></div>`}
-      </div>
+      </a>
       <div class="blog-card__body">
         <span class="blog-card__date">${p.date[currentLang]}</span>
-        <h3 class="blog-card__title">${p.title[currentLang]}</h3>
+        <h3 class="blog-card__title"><a href="${p.url || '#'}" target="_blank" rel="noopener noreferrer">${p.title[currentLang]}</a></h3>
         <p class="blog-card__excerpt">${p.excerpt[currentLang]}</p>
         <a href="${p.url || '#'}" class="blog-card__link" target="_blank" rel="noopener noreferrer">${t('blog.read')}</a>
       </div>
