@@ -369,19 +369,22 @@ const STEPS = [
 
 const POSTS = [
   {
-    date: { pt: 'Mar 2026', en: 'Mar 2026' },
-    title: { pt: 'Como o sports design transforma atletas em ícones visuais', en: 'How sports design transforms athletes into visual icons' },
-    excerpt: { pt: 'Uma reflexão sobre a linguagem visual do esporte e como composições cinemáticas constroem identidade além da performance.', en: 'A reflection on the visual language of sport and how cinematic compositions build identity beyond performance.' },
+    date: { pt: 'Abr 2026', en: 'Apr 2026' },
+    title: { pt: 'Designers vs. IA: por que eu não estou preocupado', en: 'Designers vs. AI: why I\'m not worried' },
+    excerpt: { pt: 'Todo mês surge uma nova ferramenta que vai "substituir designers". Mas o diferencial nunca foi o software — é o olhar treinado para o que funciona visualmente.', en: 'Every month there\'s a new tool that\'s going to "replace designers." But the edge was never the software — it\'s the trained eye for what actually works.' },
+    url: 'https://www.linkedin.com/posts/andrey-miranda-a0bb9a1b4_every-month-theres-a-new-tool-thats-going-share-7453541098813046784-6tIU/',
   },
   {
-    date: { pt: 'Fev 2026', en: 'Feb 2026' },
-    title: { pt: 'Motorsport e design: a velocidade como linguagem gráfica', en: 'Motorsport and design: speed as a graphic language' },
-    excerpt: { pt: 'Como as equipes de Fórmula 1 e Le Mans usam o design para comunicar potência, precisão e cultura de corrida.', en: 'How Formula 1 and Le Mans teams use design to communicate power, precision and racing culture.' },
+    date: { pt: 'Dez 2025', en: 'Dec 2025' },
+    title: { pt: 'Monday night under the lights — Miami Invitational', en: 'Monday night under the lights — Miami Invitational' },
+    excerpt: { pt: 'Por dentro da identidade visual completa do Miami Invitational: da motion a cada peça estática que levou o torneio ao próximo nível ao lado de Carlos Alcaraz.', en: 'Inside the full visual identity of the Miami Invitational: from motion to every static piece that elevated the tournament alongside Carlos Alcaraz.' },
+    url: 'https://www.linkedin.com/posts/andrey-miranda-a0bb9a1b4_monday-night-under-the-lights-at-the-miami-activity-7407092823780438016-g-zp',
   },
   {
-    date: { pt: 'Jan 2026', en: 'Jan 2026' },
-    title: { pt: 'Criando conteúdo para esports em escala global', en: 'Creating esports content at global scale' },
-    excerpt: { pt: 'Os desafios e aprendizados de produzir visual para múltiplos mercados, idiomas e plataformas simultaneamente.', en: 'The challenges and lessons of producing visuals for multiple markets, languages and platforms simultaneously.' },
+    date: { pt: 'Out 2025', en: 'Oct 2025' },
+    title: { pt: 'Experimentando pintura a óleo no sports design', en: 'Experimenting with oil painting texture in sports design' },
+    excerpt: { pt: 'Me deparei com esse estilo em alguns designers e precisei testar. O resultado virou peças para US Open e FIFA Club World Cup dentro do XStadium VR.', en: 'I came across this style in a few designers\' work and had to try it. The result ended up as pieces for the US Open and FIFA Club World Cup inside XStadium VR.' },
+    url: 'https://www.linkedin.com/posts/andrey-miranda-a0bb9a1b4_i-came-across-this-style-in-a-few-designers-activity-7382020616670851072-MtyG',
   },
 ];
 
@@ -494,7 +497,7 @@ function renderBlog() {
         <span class="blog-card__date">${p.date[currentLang]}</span>
         <h3 class="blog-card__title">${p.title[currentLang]}</h3>
         <p class="blog-card__excerpt">${p.excerpt[currentLang]}</p>
-        <a href="#" class="blog-card__link">${t('blog.read')}</a>
+        <a href="${p.url || '#'}" class="blog-card__link" target="_blank" rel="noopener noreferrer">${t('blog.read')}</a>
       </div>
     </article>
   `).join('');
