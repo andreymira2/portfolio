@@ -907,6 +907,72 @@ function initWorkCycle() {
     item.addEventListener('mouseenter', () => { isHover = true; paint(); schedule(); });
     item.addEventListener('mouseleave', () => { isHover = false; paint(); schedule(); });
 
+    // ─── TOUCH: hold pausa, soltar resume ──────
+    // - Tap rápido (<180ms) NÃO pausa — deixa o link <a> navegar
+    // - Scroll (touchmove) cancela o hold antes de pausar
+    // - Pausa freeza a bar visualmente; resume continua do ponto
+    let touchHoldTimer = null;
+    let isTouchPaused = false;
+    let pauseStartedAt = 0;
+    let barTimeAtPause = 0;  // ms já decorridos da bar atual
+
+    function freezeBar() {
+      const activeBar = bars[idx];
+      if (!activeBar) return;
+      const computed = getComputedStyle(activeBar).width;
+      activeBar.style.transition = 'none';
+      activeBar.style.width = computed;
+    }
+    function resumeBar() {
+      const activeBar = bars[idx];
+      if (!activeBar) return;
+      const container = activeBar.parentElement;
+      const fullW = container.clientWidth;
+      const currentW = parseFloat(getComputedStyle(activeBar).width);
+      const pctDone = Math.min(1, currentW / fullW);
+      const dur = isHover ? FAST : SLOW;
+      const remaining = Math.max(50, dur * (1 - pctDone));
+      void activeBar.offsetWidth;
+      activeBar.style.transition = `width ${remaining}ms linear`;
+      activeBar.style.width = '100%';
+      // Próxima troca de slide acontece quando a bar terminar
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        idx = (idx + 1) % slides.length;
+        paint();
+        schedule();
+      }, remaining);
+    }
+
+    item.addEventListener('touchstart', () => {
+      touchHoldTimer = setTimeout(() => {
+        isTouchPaused = true;
+        clearTimeout(timer);
+        freezeBar();
+      }, 180);
+    }, { passive: true });
+
+    item.addEventListener('touchmove', () => {
+      // Scroll detectado: cancela o hold (evita pausar acidentalmente)
+      clearTimeout(touchHoldTimer);
+    }, { passive: true });
+
+    item.addEventListener('touchend', () => {
+      clearTimeout(touchHoldTimer);
+      if (isTouchPaused) {
+        isTouchPaused = false;
+        resumeBar();
+      }
+    }, { passive: true });
+
+    item.addEventListener('touchcancel', () => {
+      clearTimeout(touchHoldTimer);
+      if (isTouchPaused) {
+        isTouchPaused = false;
+        resumeBar();
+      }
+    }, { passive: true });
+
     const io = new IntersectionObserver(entries => {
       isVisible = entries[0].isIntersecting;
       if (isVisible) { paint(); schedule(); }

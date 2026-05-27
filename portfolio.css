@@ -19,6 +19,19 @@ button { cursor: none; border: none; background: none; font-family: inherit; }
   --ease: cubic-bezier(0.25,0.46,0.45,0.94);
   --ease-out: cubic-bezier(0.16,1,0.3,1);
   --dur: 0.4s; --dur-lg: 0.7s;
+
+  /* ─── SISTEMA MOBILE — variáveis abaixo são SOBRESCRITAS em
+     @media (max-width: 700px). Use SEMPRE essas variáveis em vez
+     de valores hardcoded em pixels/rem que dependam do device.
+     Ver MOBILE.md pra documentação completa. */
+  --header-h: 68px;              /* altura do header fixo */
+  --hero-h: 100vh;               /* altura do hero */
+  --hero-pad-x: clamp(1.5rem, 5vw, 5rem);
+  --hero-pad-b: clamp(3rem, 6vw, 5rem);
+  --work-card-h: auto;           /* desktop usa aspect-ratio, mobile vira 85dvh */
+  --work-meta-pos: relative;     /* desktop fica abaixo, mobile vira absolute overlay */
+  --mobile-safe-top: 0px;        /* safe-area-inset-top só quando suportado */
+  --mobile-safe-bot: 0px;
 }
 
 /* ─── TYPOGRAPHY ─────────────────────────────── */
@@ -732,3 +745,506 @@ body::after {
 /* ─── WORK GRID — section label override ────── */
 .work .section-label { color: var(--text-muted); margin-bottom: var(--sp-md); }
 .work .section-header { margin-bottom: var(--sp-lg); }
+
+/* ═══════════════════════════════════════════════
+   MOBILE OPTIMIZATIONS
+   ─────────────────────────────────────────────
+   Bloco focado: pensa em iPhone 12-15 (390px) e
+   iPhone Mini/SE (375px). Tablet 601-900px ganha
+   tratamento intermediário. Tudo aqui WIN sobre
+   as regras espalhadas acima na cascade order.
+═══════════════════════════════════════════════ */
+
+/* ── TABLET (601-900px) ─────────────────────── */
+@media (max-width: 900px) {
+  /* Spacing global menos pesado */
+  :root {
+    --sp-2xl: 6rem;
+    --sp-xl:  4.5rem;
+    --sp-lg:  3rem;
+  }
+  section { padding: 5rem 0; }
+
+  /* Process: foto VOLTA como elemento full-width abaixo do texto */
+  .process__right { display: block !important; position: static; margin-top: 3rem; }
+  .process__photo { aspect-ratio: 16/9; object-position: center 20%; }
+
+  /* About: imagem VOLTA antes do texto (mobile-first) */
+  .about__grid { grid-template-columns: 1fr; }
+  .about__image-col {
+    display: block !important;
+    position: static;
+    margin-bottom: 2.5rem;
+    max-width: 360px;
+  }
+  .about__image-wrap { aspect-ratio: 4/5; }
+
+  /* Stats: 3 colunas em grid (não flex) pra não quebrar */
+  .about__stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; padding: 2rem 0; }
+  .stat__number { font-size: 1.875rem; }
+  .stat__plus { font-size: 1rem; }
+  .stat__label { font-size: 0.6875rem; }
+}
+
+/* ═══════════════════════════════════════════════
+   MOBILE (≤700px) — CINEMA HIGHLIGHT REEL
+   ─────────────────────────────────────────────
+   Mobile NÃO é uma versão menor do desktop.
+   É uma experiência diferente: imersiva, dark,
+   cinematic. Cada projeto fullscreen. Type editorial
+   gigante. Hero full-bleed do recorte. Scroll-snap.
+═══════════════════════════════════════════════ */
+
+@media (max-width: 700px) {
+  /* ─── VARIÁVEIS MOBILE ─────────────────────
+     Sobrescreve os tokens do desktop. Tudo abaixo
+     consome essas vars — pra mudar comportamento
+     global, mexe AQUI, não nas regras individuais. */
+  :root {
+    /* Spacing scale */
+    --sp-2xl: 4rem;
+    --sp-xl:  3rem;
+    --sp-lg:  2.25rem;
+    --sp-md:  1.5rem;
+
+    /* Hero */
+    --hero-h: 100dvh;
+    --hero-pad-x: 1.5rem;
+    --hero-pad-b: 2.25rem;
+    --hero-min-h: 580px;
+
+    /* Work card */
+    --work-card-h: 85dvh;
+    --work-card-min-h: 520px;
+    --work-meta-pos: absolute;
+
+    /* Safe area (iPhone notch / home indicator) */
+    --mobile-safe-top: env(safe-area-inset-top, 0px);
+    --mobile-safe-bot: env(safe-area-inset-bottom, 0px);
+
+    /* Container padding */
+    --container-pad: 1.5rem;
+  }
+  section { padding: 4rem 0; }
+
+  /* Container */
+  .container { padding: 0 var(--container-pad); }
+
+  /* Tipografia editorial — mais peso, menos polidez */
+  h1 { font-size: clamp(3rem, 14vw, 4.5rem); line-height: 0.95; letter-spacing: -0.035em; }
+  h2 { font-size: clamp(2.5rem, 11vw, 3.75rem); line-height: 0.98; letter-spacing: -0.03em; }
+  h3 { font-size: 1.125rem; }
+  p  { font-size: 0.9375rem; line-height: 1.65; }
+
+  /* Section header default */
+  .section-header { margin-bottom: 2.5rem; }
+  .section-title  { margin-bottom: 1.5rem; }
+
+  /* Scroll-snap em proximity: snap quando próximo de um work-item,
+     resto da página rola normal (sobre, contato, etc). */
+  html {
+    scroll-snap-type: y proximity;
+    scroll-padding-top: var(--header-h);
+  }
+
+  /* ═══ HERO — FULL-BLEED CINEMATIC ═══════════ */
+  .hero {
+    height: var(--hero-h);
+    min-height: var(--hero-min-h);
+    position: relative;
+    overflow: hidden;
+    background: var(--dark);
+  }
+  /* Recorte vira BACKGROUND, não foreground */
+  .hero__figure {
+    display: block !important;
+    position: absolute;
+    inset: 0;
+    height: 100% !important;
+    width: 100% !important;
+    z-index: 0;
+    opacity: 1;
+    pointer-events: none;
+  }
+  .hero__figure img,
+  .hero__figure picture {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover;
+    object-position: 50% 12%;
+    filter: brightness(0.55) saturate(0.85) contrast(1.05);
+  }
+  /* Gradient overlay pra legibilidade do texto */
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background:
+      linear-gradient(180deg,
+        rgba(15,15,15,0.55) 0%,
+        rgba(15,15,15,0.15) 25%,
+        rgba(15,15,15,0.15) 45%,
+        rgba(15,15,15,0.85) 78%,
+        var(--dark) 100%);
+    pointer-events: none;
+  }
+  /* Tools (Ps Ai Id Ae Fig) somem em mobile */
+  .hero__tools { display: none; }
+  /* Container do hero — respeita safe-area-inset */
+  .hero__content {
+    position: relative;
+    z-index: 3;
+    height: 100%;
+    padding: var(--mobile-safe-top) var(--hero-pad-x) calc(var(--hero-pad-b) + var(--mobile-safe-bot));
+    justify-content: flex-end;
+    min-height: 0;
+  }
+  .hero__text {
+    max-width: 100% !important;
+    gap: 1.25rem;
+  }
+  /* Eyebrow: scroll horizontal sem barra, bleed pras laterais */
+  .hero__eyebrow {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    margin: 0 calc(var(--hero-pad-x) * -1);
+    padding: 0 var(--hero-pad-x);
+    gap: 0.5rem;
+  }
+  .hero__eyebrow::-webkit-scrollbar { display: none; }
+  .hero__tag {
+    flex-shrink: 0;
+    font-size: 0.625rem;
+    padding: 0.4em 0.85em;
+    background: rgba(255,255,255,0.04);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-color: rgba(255,255,255,0.18);
+  }
+  /* Title — editorial GIGANTE, ocupa peso visual */
+  .hero__title {
+    font-size: clamp(2.75rem, 13vw, 4rem);
+    line-height: 0.95;
+    letter-spacing: -0.035em;
+    text-wrap: balance;
+  }
+  /* Bottom: desc + scroll-hint repensados */
+  .hero__bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.25rem;
+  }
+  .hero__desc {
+    max-width: 100%;
+    font-size: 0.9375rem;
+    line-height: 1.55;
+    color: rgba(255,255,255,0.7);
+  }
+  /* Scroll hint = botão-CTA estilo "Ver trabalhos" */
+  .hero__scroll-hint {
+    position: relative;
+    bottom: auto;
+    right: auto;
+    flex-direction: row;
+    gap: 0.5rem;
+    color: rgba(255,255,255,0.85);
+    font-size: 0.6875rem;
+    letter-spacing: 0.2em;
+    padding: 0.875rem 1.25rem;
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 999px;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    background: rgba(255,255,255,0.05);
+    align-self: flex-start;
+    margin-top: 0.5rem;
+  }
+  .hero__scroll-line {
+    width: 12px;
+    height: 1px;
+    background: rgba(255,255,255,0.7);
+    animation: none;
+  }
+  .hero__scroll-line::after { display: none; }
+
+  /* ═══ CLIENTS — marquee tighter ═════════════ */
+  .clients { padding: 2.5rem 0 3rem; }
+  .clients__grid { gap: 1.5rem 2rem; }
+  .client-logo { height: 24px; }
+  .clients__label { font-size: 0.625rem; letter-spacing: 0.16em; }
+
+  /* ═══ WORK — FULLSCREEN STORIES ════════════ */
+  .work {
+    background: #0a0a0a;
+    color: var(--white);
+    padding: 0;
+  }
+  /* Section header tem seu próprio container preto */
+  .work .section-header {
+    background: var(--dark);
+    padding: 4rem var(--container-pad) 2.5rem;
+    margin: 0;
+  }
+  .work .section-label { color: rgba(255,255,255,0.4); margin-bottom: 1rem; }
+  .work .section-title { color: var(--white); margin-bottom: 0; }
+  .work .section-title em { color: rgba(255,255,255,0.4); }
+
+  /* Grid: 1 col, sem gap, fundo preto */
+  .work__grid {
+    grid-template-columns: 1fr;
+    gap: 0;
+    padding: 0;
+    background: #0a0a0a;
+    max-width: 100%;
+  }
+
+  /* Cada projeto = fullscreen card. Wide vira normal. */
+  .work-item,
+  .work-item--wide {
+    position: relative;
+    grid-column: span 1 !important;
+    margin: 0;
+    flex-direction: column;
+    gap: 0;
+    scroll-snap-align: start;
+    scroll-snap-stop: normal;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+
+  /* Media: ocupa --work-card-h (deixa hint do próximo card) */
+  .work-item__media {
+    aspect-ratio: auto !important;
+    height: var(--work-card-h);
+    min-height: var(--work-card-min-h);
+    width: 100%;
+    background: #0a0a0a;
+    touch-action: manipulation; /* elimina delay de 300ms em iOS */
+  }
+  /* Slides: object-fit cover sempre — sem letterbox */
+  .work-item__slide {
+    object-fit: cover;
+    object-position: center;
+  }
+  /* Borda viva desnecessária em fullscreen */
+  .work-item__media::before { display: none; }
+
+  /* Bars no topo com safe area */
+  .work-item__bars {
+    top: calc(14px + var(--mobile-safe-top));
+    left: var(--container-pad);
+    right: var(--container-pad);
+    gap: 4px;
+    opacity: 0.95;
+  }
+  .work-item__bar { height: 2.5px; background: rgba(255,255,255,0.22); }
+  .work-item__bar-fill { background: rgba(255,255,255,1); }
+
+  /* Hover overlay (overlay sempre visível em touch) */
+  .work-item__hover {
+    opacity: 1;
+    transform: none;
+    background: none;
+    padding: 0;
+    top: calc(2.75rem + var(--mobile-safe-top));
+    right: var(--container-pad);
+    bottom: auto;
+    left: auto;
+    width: auto;
+    display: flex;
+    align-items: center;
+  }
+  .work-item__hover-cta { display: none; }
+  .work-item__counter {
+    opacity: 1;
+    transform: none;
+    color: rgba(255,255,255,0.65);
+    font-size: 0.6875rem;
+    letter-spacing: 0.18em;
+    font-weight: 600;
+  }
+  .work-item__counter [data-counter-cur] { color: var(--white); }
+
+  /* Meta editorial: OVERLAY no bottom da imagem (não abaixo) */
+  .work-item__meta {
+    position: var(--work-meta-pos);
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 5rem var(--container-pad) calc(2rem + var(--mobile-safe-bot));
+    background: linear-gradient(to top,
+      rgba(0,0,0,0.92) 0%,
+      rgba(0,0,0,0.55) 50%,
+      rgba(0,0,0,0.1) 85%,
+      transparent 100%);
+    z-index: 5;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.625rem;
+    color: var(--white);
+    pointer-events: none;
+  }
+  .work-item__title,
+  .work-item--wide .work-item__title {
+    color: var(--white);
+    font-size: clamp(1.5rem, 6vw, 1.875rem);
+    max-width: 75%; /* deixa room pro CTA ↗ */
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    transform: none !important;
+  }
+  .work-item__title::after { display: none; }
+  .work-item__caption,
+  .work-item--wide .work-item__caption {
+    color: rgba(255,255,255,0.75);
+    font-size: 0.875rem;
+    max-width: 75%;
+    text-align: left;
+    line-height: 1.5;
+  }
+
+  /* CTA "Ver projeto" — botão circular no canto inferior direito */
+  .work-item::after {
+    content: '↗';
+    position: absolute;
+    bottom: calc(2rem + var(--mobile-safe-bot));
+    right: var(--container-pad);
+    z-index: 6;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255,255,255,0.92);
+    color: var(--dark);
+    border-radius: 50%;
+    font-size: 1.125rem;
+    font-weight: 600;
+    line-height: 1;
+    pointer-events: none;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.4);
+  }
+
+  /* Pan animations (Ken Burns) acelerado em mobile — feels cinemático */
+  .work-item__slide--pan-y.is-active,
+  .work-item__slide--pan-x.is-active {
+    animation-duration: 6s;
+  }
+
+  /* ═══ PROCESS — vertical timeline tighter ═══ */
+  .process__inner { gap: 2rem; }
+  .process__step { padding-bottom: 1.5rem; }
+  .process__photo-wrap { margin-top: 1.75rem; }
+  .process__photo { aspect-ratio: 4/5; object-position: center 25%; }
+
+  /* ═══ ABOUT — photo full-bleed, stats grandes ═══ */
+  .about { padding: 4rem 0; }
+  .about__image-col {
+    margin: 0 calc(var(--container-pad) * -1) 2rem;
+    max-width: none;
+  }
+  .about__image-wrap {
+    aspect-ratio: 4/5;
+    border-radius: 0;
+  }
+  .about__stats {
+    grid-template-columns: 1fr;
+    gap: 0;
+    padding: 0;
+    margin: 2rem 0;
+    border: none;
+  }
+  .stat {
+    padding: 1.25rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+  }
+  .stat:first-child { border-top: 1px solid rgba(255,255,255,0.08); }
+  .stat__top {
+    display: inline-flex;
+    margin-bottom: 0;
+  }
+  .stat__number {
+    font-size: 3rem;
+    line-height: 1;
+  }
+  .stat__plus {
+    font-size: 1.5rem;
+  }
+  .stat__label {
+    font-size: 0.75rem;
+    margin: 0;
+    text-align: right;
+    color: rgba(255,255,255,0.5);
+    max-width: 50%;
+  }
+  .about__skills { gap: 0.4rem; margin-top: 1.5rem; }
+  .skill-tag { font-size: 0.625rem; padding: 0.4em 0.85em; }
+
+  /* ═══ BLOG ─────────────────────────────────── */
+  .blog__grid { grid-template-columns: 1fr; gap: 1px; }
+
+  /* ═══ CONTACT ──────────────────────────────── */
+  .contact__grid { gap: 2.5rem; }
+  .contact__socials { gap: 1.25rem; }
+  .form-input { padding: 0.875rem 1rem; font-size: 1rem; /* prevent iOS zoom */ }
+  .form-textarea { min-height: 110px; }
+
+  /* ═══ FOOTER ───────────────────────────────── */
+  .footer__inner { flex-direction: column; gap: 0.75rem; text-align: center; font-size: 0.75rem; }
+
+  /* ═══ MOBILE MENU ──────────────────────────── */
+  .mobile-menu__link { font-size: clamp(2rem, 9vw, 3rem); }
+
+  /* ═══ SCROLL PROGRESS BAR ──────────────────── */
+  body::after { height: 1.5px; }
+
+  /* ═══ BUTTONS ──────────────────────────────── */
+  .btn { padding: 0.95em 1.5em; font-size: 0.9375rem; }
+}
+
+/* ── LANDSCAPE em mobile (≤900 + altura ≤500) ──
+   iPhone deitado: 667×375. Hero "fullscreen" fica
+   espremido. Ajusta pra layout mais compacto. */
+@media (max-width: 900px) and (orientation: landscape) and (max-height: 500px) {
+  .hero {
+    min-height: 360px;
+    height: auto;
+  }
+  .hero__content {
+    padding-top: calc(var(--mobile-safe-top) + 4rem);
+    padding-bottom: 2rem;
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
+  .hero__title { font-size: clamp(2rem, 7vw, 2.75rem); }
+  .hero__figure img { object-position: 50% 25%; }
+  /* Work card landscape: usa height auto pra não estourar viewport */
+  .work-item__media {
+    height: auto;
+    aspect-ratio: 16 / 10;
+    min-height: 320px;
+  }
+}
+
+/* ── MOBILE PEQUENO (≤380px) ──────────────────
+   iPhone SE 1ª/2ª gen, iPhone Mini quando reescalado.
+   Pequenos ajustes — não mude breakpoints aqui sem
+   atualizar a doc. */
+@media (max-width: 380px) {
+  :root {
+    --container-pad: 1rem;
+  }
+  .hero__content { padding-left: var(--container-pad); padding-right: var(--container-pad); }
+  .work .section-header { padding: 3rem var(--container-pad) 2rem; }
+  .stat__number { font-size: 2.5rem; }
+}
+
+/* ── TOUCH DEVICES — Tweaks panel default off ── */
+@media (hover: none) and (max-width: 900px) {
+  .tweaks-panel { display: none; }
+}
