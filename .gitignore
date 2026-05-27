@@ -1,0 +1,16 @@
+# Sistema
+.DS_Store
+Thumbs.db
+
+# Node (serve local, não vai pro ar)
+node_modules/
+.vite/
+
+# Backups locais
+*.bak
+
+# Zip de referência
+Site pessoal.zip
+
+# Outros
+*.log

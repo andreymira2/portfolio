@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-page="project">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Carregando projeto — Andrey Miranda</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300;1,9..40,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="portfolio.css?v=4.0" />
+  <style>
+    /* ─── PROJECT PAGE ──────────────────────────── */
+    body[data-page="project"] { background: var(--bg); }
+    .project-page { padding-top: 0; }
+
+    /* Header — fica preto fixo nesta página */
+    body[data-page="project"] #header {
+      background: rgba(15,15,15,0.92);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .project__back {
+      font-size: 0.8125rem;
+      color: rgba(255,255,255,0.55);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: color .3s var(--ease);
+      letter-spacing: 0.01em;
+    }
+    .project__back:hover { color: var(--white); }
+    .project__back::before {
+      content: '←';
+      transition: transform .35s var(--ease-out);
+      display: inline-block;
+    }
+    .project__back:hover::before { transform: translateX(-4px); }
+
+    /* Hero do projeto */
+    .project-hero {
+      background: var(--dark);
+      color: var(--white);
+      padding: clamp(7rem, 14vw, 11rem) 0 clamp(3rem, 6vw, 5rem);
+      position: relative;
+      overflow: hidden;
+    }
+    .project-hero__noise {
+      position: absolute; inset: 0;
+      opacity: 0.025;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 200px 200px;
+      pointer-events: none;
+    }
+    .project-hero__inner { position: relative; z-index: 1; }
+    .project-hero__meta {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .project-hero__cat {
+      font-size: 0.6875rem;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.42);
+      border: 1px solid rgba(255,255,255,0.14);
+      padding: 0.5em 1em;
+      border-radius: 999px;
+    }
+    .project-hero__index {
+      font-family: var(--font-display);
+      font-size: 0.6875rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      color: rgba(255,255,255,0.32);
+    }
+    .project-hero__title {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 6.5vw, 6rem);
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      line-height: 1.02;
+      color: var(--white);
+      margin-bottom: clamp(2rem, 4vw, 3rem);
+      text-wrap: balance;
+      max-width: 14ch;
+    }
+    .project-hero__bottom {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 2rem 4rem;
+      align-items: end;
+    }
+    .project-hero__desc {
+      font-size: clamp(1rem, 1.2vw, 1.125rem);
+      line-height: 1.65;
+      color: rgba(255,255,255,0.65);
+      max-width: 52ch;
+    }
+    .project-hero__link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--white);
+      padding: 0.875em 1.5em;
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 999px;
+      transition: background .3s var(--ease), border-color .3s var(--ease);
+      white-space: nowrap;
+    }
+    .project-hero__link:hover {
+      background: var(--white);
+      color: var(--dark);
+      border-color: var(--white);
+    }
+    @media (max-width: 700px) {
+      .project-hero__bottom { grid-template-columns: 1fr; gap: 1.75rem; }
+    }
+
+    /* Galeria editorial */
+    .project-gallery {
+      background: var(--bg);
+      padding: clamp(3rem, 6vw, 5rem) 0 clamp(4rem, 8vw, 7rem);
+    }
+    .project-gallery__grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: clamp(0.5rem, 1.2vw, 1rem);
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: 0 clamp(1.5rem, 5vw, 5rem);
+    }
+    .project-gallery__item {
+      position: relative;
+      overflow: hidden;
+      background: #0a0a0a;
+      display: block;
+    }
+    .project-gallery__item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 1.4s cubic-bezier(0.25,0.46,0.45,0.94);
+    }
+    .project-gallery__item:hover img { transform: scale(1.03); }
+
+    /* Spans baseados no formato — variedade rítmica */
+    .project-gallery__item[data-fmt="16:9"] { grid-column: span 6; aspect-ratio: 16 / 9; }
+    .project-gallery__item[data-fmt="4:5"]  { grid-column: span 3; aspect-ratio: 4 / 5; }
+    .project-gallery__item[data-fmt="1:1"]  { grid-column: span 3; aspect-ratio: 1; }
+    .project-gallery__item[data-fmt="9:16"] { grid-column: span 2; aspect-ratio: 9 / 16; }
+
+    @media (max-width: 900px) {
+      .project-gallery__grid { grid-template-columns: repeat(2, 1fr); }
+      .project-gallery__item[data-fmt="16:9"] { grid-column: span 2; }
+      .project-gallery__item[data-fmt="4:5"]  { grid-column: span 1; }
+      .project-gallery__item[data-fmt="1:1"]  { grid-column: span 1; }
+      .project-gallery__item[data-fmt="9:16"] { grid-column: span 1; }
+    }
+    @media (max-width: 540px) {
+      .project-gallery__grid { grid-template-columns: 1fr; gap: 0.625rem; padding: 0 1.25rem; }
+      .project-gallery__item[data-fmt] { grid-column: span 1; }
+    }
+
+    /* Navegação para outros projetos */
+    .project-nav {
+      background: var(--dark);
+      color: var(--white);
+      padding: clamp(4rem, 7vw, 6rem) 0;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+    .project-nav__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(1.5rem, 3vw, 3rem);
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: 0 clamp(1.5rem, 5vw, 5rem);
+    }
+    .project-nav__card {
+      display: block;
+      background: transparent;
+      padding: 1.75rem;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 4px;
+      transition: border-color .35s var(--ease), background .35s var(--ease);
+      position: relative;
+      overflow: hidden;
+    }
+    .project-nav__card:hover {
+      border-color: rgba(255,255,255,0.3);
+      background: rgba(255,255,255,0.02);
+    }
+    .project-nav__card--disabled {
+      opacity: 0.25;
+      pointer-events: none;
+    }
+    .project-nav__label {
+      font-size: 0.625rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 0.75rem;
+      display: block;
+    }
+    .project-nav__title {
+      font-family: var(--font-display);
+      font-size: clamp(1.125rem, 1.8vw, 1.5rem);
+      font-weight: 600;
+      letter-spacing: -0.015em;
+      line-height: 1.15;
+      color: var(--white);
+      margin: 0;
+    }
+    .project-nav__card--next { text-align: right; }
+    .project-nav__card--next .project-nav__title::after {
+      content: ' →';
+      color: rgba(255,255,255,0.5);
+    }
+    .project-nav__card--prev .project-nav__title::before {
+      content: '← ';
+      color: rgba(255,255,255,0.5);
+    }
+    @media (max-width: 600px) {
+      .project-nav__grid { grid-template-columns: 1fr; }
+    }
+
+    /* Estado vazio (slug inválido) */
+    .project-empty {
+      min-height: 70vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+      gap: 1.5rem;
+      color: var(--text);
+    }
+    .project-empty h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      letter-spacing: -0.025em;
+    }
+    .project-empty p { color: var(--text-muted); }
+    .project-empty a { text-decoration: underline; }
+
+    /* ─── MICRO-ANIMAÇÕES ──────────────────────── */
+
+    /* Char-by-char reveal do título do hero */
+    .project-hero__title .word {
+      display: inline-block;
+      white-space: nowrap;
+      margin-right: 0.18em;
+    }
+    .project-hero__title .char {
+      display: inline-block;
+      transform: translateY(110%);
+      opacity: 0;
+      will-change: transform, opacity;
+    }
+    .project-hero__title .char.is-in {
+      transform: translateY(0);
+      opacity: 1;
+      transition: transform 0.85s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease-out;
+    }
+
+    /* Scroll-driven scale no hero (aplicado via JS scroll handler) */
+    .project-hero__title {
+      will-change: transform, opacity;
+    }
+
+    /* Galeria — mask reveal de baixo pra cima + slight scale entrance */
+    .project-gallery__item {
+      clip-path: inset(100% 0% 0% 0%);
+      transition: clip-path 1.15s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .project-gallery__item.is-in {
+      clip-path: inset(0% 0% 0% 0%);
+    }
+    .project-gallery__item img {
+      transition: transform 1.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .project-gallery__item:hover img { transform: scale(1.05); }
+
+    /* ─── CURSOR LABEL (texto "VIEW" que segue cursor) ─── */
+    #cursor-label {
+      position: fixed;
+      top: 0;
+      left: 0;
+      background: var(--white);
+      color: var(--dark);
+      padding: 0.5em 0.9em;
+      border-radius: 999px;
+      font-family: var(--font-body);
+      font-size: 0.625rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      pointer-events: none;
+      z-index: 9995;
+      opacity: 0;
+      transform: translate(-50%, calc(-50% + 26px)) scale(0.8);
+      transition: opacity 0.3s var(--ease), transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      will-change: transform, opacity;
+      white-space: nowrap;
+    }
+    #cursor-label.is-visible {
+      opacity: 1;
+      transform: translate(-50%, calc(-50% + 32px)) scale(1);
+    }
+    /* Esconde o cursor-ring padrão quando o cursor-label está ativo (evita ruído) */
+    body.cursor-view-active #cursor-ring { opacity: 0.3; }
+    @media (hover: none) { #cursor-label { display: none; } }
+
+    /* ─── CINEMA LIGHTBOX ──────────────────────── */
+    .cinema-lb {
+      position: fixed;
+      inset: 0;
+      z-index: 9990;
+      background: rgba(5, 5, 5, 0.97);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s var(--ease), backdrop-filter 0.4s var(--ease);
+    }
+    .cinema-lb.is-open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .cinema-lb__img {
+      max-width: 92vw;
+      max-height: 84vh;
+      object-fit: contain;
+      user-select: none;
+      -webkit-user-drag: none;
+      transform: scale(0.96);
+      opacity: 0;
+      transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.4s var(--ease);
+    }
+    .cinema-lb.is-open .cinema-lb__img {
+      transform: scale(1);
+      opacity: 1;
+    }
+    .cinema-lb__close {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 50%;
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 0.875rem;
+      transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.3s;
+    }
+    .cinema-lb__close:hover {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.4);
+      color: var(--white);
+      transform: rotate(90deg);
+    }
+    .cinema-lb__nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 56px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 50%;
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 1.125rem;
+      transition: background 0.2s, border-color 0.2s, color 0.2s;
+    }
+    .cinema-lb__nav:hover {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.4);
+      color: var(--white);
+    }
+    .cinema-lb__nav--prev { left: 1.5rem; }
+    .cinema-lb__nav--next { right: 1.5rem; }
+    .cinema-lb__counter {
+      position: absolute;
+      bottom: 1.75rem;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(255, 255, 255, 0.45);
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.75rem;
+      letter-spacing: 0.22em;
+      font-variant-numeric: tabular-nums;
+    }
+    @media (max-width: 700px) {
+      .cinema-lb__nav { width: 44px; height: 44px; }
+      .cinema-lb__nav--prev { left: 0.75rem; }
+      .cinema-lb__nav--next { right: 0.75rem; }
+    }
+
+    /* ─── PREV/NEXT preview cover ──────────────── */
+    .project-nav__card { position: relative; overflow: visible; }
+    .project-nav__preview {
+      position: absolute;
+      width: 140px;
+      height: 200px;
+      object-fit: cover;
+      pointer-events: none;
+      opacity: 0;
+      z-index: 6;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+      transition: opacity 0.4s var(--ease), transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+      will-change: transform, opacity;
+    }
+    .project-nav__card--prev .project-nav__preview {
+      left: -160px;
+      top: 50%;
+      transform: translateY(-50%) scale(0.85) rotate(-6deg);
+      transform-origin: right center;
+    }
+    .project-nav__card--next .project-nav__preview {
+      right: -160px;
+      top: 50%;
+      transform: translateY(-50%) scale(0.85) rotate(6deg);
+      transform-origin: left center;
+    }
+    .project-nav__card:hover .project-nav__preview {
+      opacity: 1;
+    }
+    .project-nav__card--prev:hover .project-nav__preview {
+      transform: translateY(-50%) scale(1) rotate(-3deg);
+    }
+    .project-nav__card--next:hover .project-nav__preview {
+      transform: translateY(-50%) scale(1) rotate(3deg);
+    }
+    @media (max-width: 1100px) {
+      .project-nav__preview { display: none; }
+    }
+
+    /* Reduced motion respeitado */
+    @media (prefers-reduced-motion: reduce) {
+      .project-gallery__item { clip-path: none; transition: none; }
+      .project-hero__title .char { transform: none; opacity: 1; transition: none; }
+      .project-nav__preview { transition: opacity 0.2s; }
+      #cursor-label { display: none; }
+    }
+  </style>
+</head>
+<body data-page="project">
+
+<!-- Cursor (do design system) -->
+<div id="cursor-dot"  aria-hidden="true"></div>
+<div id="cursor-ring" aria-hidden="true"></div>
+<div id="cursor-label" aria-hidden="true">View</div>
+
+<!-- HEADER -->
+<header id="header" class="is-scrolled">
+  <nav class="nav container">
+    <a href="index.html" class="nav__logo">AM<span>.</span></a>
+    <a href="index.html#trabalhos" class="project__back" data-i18n="project.back">Todos os trabalhos</a>
+    <div class="nav__right">
+      <div class="lang-toggle" role="group" aria-label="Language">
+        <button class="lang-toggle__opt is-active" data-l="pt">PT</button>
+        <span class="lang-toggle__sep">/</span>
+        <button class="lang-toggle__opt" data-l="en">EN</button>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<main class="project-page" id="projectMain">
+  <!-- Preenchido por JS abaixo -->
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer__inner">
+      <span class="footer__copy" data-i18n="footer.copy">© 2026 Andrey Miranda</span>
+      <a href="#" class="footer__top magnetic" data-i18n="footer.top">↑ Voltar ao topo</a>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="portfolio.js?v=4.0"></script>
+<script>
+/* ─── PROJECT PAGE RENDERER ──────────────────── */
+(function() {
+  const params = new URLSearchParams(window.location.search);
+  const slug   = params.get('p');
+  const main   = document.getElementById('projectMain');
+  const cursorLabel = document.getElementById('cursor-label');
+
+  const COPY = {
+    pt: {
+      back: 'Todos os trabalhos',
+      empty_title: 'Projeto não encontrado',
+      empty_desc: 'O link parece estar quebrado.',
+      empty_link: 'Voltar ao portfólio',
+      hero_index: (n, t) => `Projeto ${n} / ${String(t).padStart(2,'0')}`,
+      view_behance: 'Ver no Behance',
+      prev_label: 'Projeto anterior',
+      next_label: 'Próximo projeto',
+      cursor_view: 'Ver',
+    },
+    en: {
+      back: 'All work',
+      empty_title: 'Project not found',
+      empty_desc: 'This link seems broken.',
+      empty_link: 'Back to portfolio',
+      hero_index: (n, t) => `Project ${n} / ${String(t).padStart(2,'0')}`,
+      view_behance: 'View on Behance',
+      prev_label: 'Previous project',
+      next_label: 'Next project',
+      cursor_view: 'View',
+    }
+  };
+
+  // Helper: split text em words + chars envolvidos em <span> pra char-by-char reveal
+  function splitChars(el) {
+    const text = el.textContent.trim();
+    el.innerHTML = text.split(' ').map(word => {
+      const chars = word.split('').map(c => `<span class="char">${c === '<' ? '&lt;' : c === '>' ? '&gt;' : c}</span>`).join('');
+      return `<span class="word">${chars}</span>`;
+    }).join('');
+  }
+
+  // Lightbox state global (sobrevive entre renders de lang)
+  let lbImgs = [];
+  let lbIdx = 0;
+  let lb = null;
+
+  function ensureLightbox() {
+    if (lb) return lb;
+    lb = document.createElement('div');
+    lb.className = 'cinema-lb';
+    lb.innerHTML = `
+      <button class="cinema-lb__close" aria-label="Fechar">&times;</button>
+      <button class="cinema-lb__nav cinema-lb__nav--prev" aria-label="Anterior">&larr;</button>
+      <img class="cinema-lb__img" src="" alt="">
+      <button class="cinema-lb__nav cinema-lb__nav--next" aria-label="Próximo">&rarr;</button>
+      <div class="cinema-lb__counter">01 / 01</div>
+    `;
+    document.body.appendChild(lb);
+    lb.querySelector('.cinema-lb__close').addEventListener('click', closeLb);
+    lb.querySelector('.cinema-lb__nav--prev').addEventListener('click', () => navLb(-1));
+    lb.querySelector('.cinema-lb__nav--next').addEventListener('click', () => navLb(1));
+    lb.addEventListener('click', e => { if (e.target === lb) closeLb(); });
+    document.addEventListener('keydown', e => {
+      if (!lb.classList.contains('is-open')) return;
+      if (e.key === 'Escape') closeLb();
+      else if (e.key === 'ArrowLeft') navLb(-1);
+      else if (e.key === 'ArrowRight') navLb(1);
+    });
+    return lb;
+  }
+  function openLb(i) {
+    if (!lbImgs.length) return;
+    ensureLightbox();
+    lbIdx = (i + lbImgs.length) % lbImgs.length;
+    lb.querySelector('.cinema-lb__img').src = lbImgs[lbIdx];
+    lb.querySelector('.cinema-lb__counter').textContent =
+      `${String(lbIdx + 1).padStart(2, '0')} / ${String(lbImgs.length).padStart(2, '0')}`;
+    lb.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLb() {
+    if (!lb) return;
+    lb.classList.remove('is-open');
+    document.body.style.overflow = '';
+  }
+  function navLb(dir) { openLb(lbIdx + dir); }
+
+  function renderProject() {
+    const lang = (window.currentLang) || localStorage.getItem('am_lang') || 'pt';
+    const copy = COPY[lang] || COPY.pt;
+
+    // Atualiza label "Todos os trabalhos"
+    const back = document.querySelector('.project__back');
+    if (back) back.lastChild.nodeValue = ' ' + copy.back;
+
+    // Atualiza cursor label
+    if (cursorLabel) cursorLabel.textContent = copy.cursor_view;
+
+    // Atualiza langtoggle visual
+    document.querySelectorAll('.lang-toggle__opt').forEach(b => {
+      b.classList.toggle('is-active', b.dataset.l === lang);
+    });
+
+    const idx = PROJECTS.findIndex(p => p.slug === slug);
+    if (idx === -1) {
+      main.innerHTML = `
+        <div class="project-empty">
+          <h1>${copy.empty_title}</h1>
+          <p>${copy.empty_desc}</p>
+          <a href="index.html#trabalhos">${copy.empty_link}</a>
+        </div>`;
+      document.title = copy.empty_title + ' — Andrey Miranda';
+      return;
+    }
+
+    const p = PROJECTS[idx];
+    const total = PROJECTS.length;
+    document.title = `${p.title} — Andrey Miranda`;
+
+    // Detectar formato de cada imagem
+    function fmtOf(src, i) {
+      if (p.formats && p.formats[i]) return p.formats[i];
+      const name = (src || '').toLowerCase();
+      const map = { '9x16':'9:16','9:16':'9:16','16x9':'16:9','16:9':'16:9','4x5':'4:5','4:5':'4:5','1x1':'1:1','1:1':'1:1' };
+      for (const [k, v] of Object.entries(map)) if (name.includes(k)) return v;
+      return '4:5';
+    }
+
+    const imgs = (p.images && p.images.length ? p.images : [p.cover]).filter(Boolean);
+    lbImgs = imgs.slice(); // armazena pro lightbox
+
+    const gallery = imgs.map((src, i) => {
+      const f = fmtOf(src, i);
+      return `<button class="project-gallery__item" data-fmt="${f}" data-idx="${i}" aria-label="${p.title} — ${i + 1}">
+        <img src="${src}" alt="${p.title} — ${i + 1}" loading="${i < 2 ? 'eager' : 'lazy'}" decoding="async">
+      </button>`;
+    }).join('');
+
+    const prev = PROJECTS[(idx - 1 + total) % total];
+    const next = PROJECTS[(idx + 1) % total];
+
+    main.innerHTML = `
+      <section class="project-hero">
+        <div class="project-hero__noise" aria-hidden="true"></div>
+        <div class="container project-hero__inner">
+          <div class="project-hero__meta">
+            <span class="project-hero__cat">${p.cat[lang]}</span>
+            <span class="project-hero__index">${copy.hero_index(p.num, total)}</span>
+          </div>
+          <h1 class="project-hero__title">${p.title}</h1>
+          <div class="project-hero__bottom">
+            <p class="project-hero__desc">${p.desc[lang]}</p>
+            ${p.url ? `<a class="project-hero__link" href="${p.url}" target="_blank" rel="noopener">${copy.view_behance} →</a>` : ''}
+          </div>
+        </div>
+      </section>
+
+      <section class="project-gallery">
+        <div class="project-gallery__grid">
+          ${gallery}
+        </div>
+      </section>
+
+      <section class="project-nav">
+        <div class="project-nav__grid">
+          <a class="project-nav__card project-nav__card--prev" href="projeto.html?p=${prev.slug}">
+            ${prev.cover ? `<img class="project-nav__preview" src="${prev.cover}" alt="">` : ''}
+            <span class="project-nav__label">${copy.prev_label}</span>
+            <h3 class="project-nav__title">${prev.title}</h3>
+          </a>
+          <a class="project-nav__card project-nav__card--next" href="projeto.html?p=${next.slug}">
+            ${next.cover ? `<img class="project-nav__preview" src="${next.cover}" alt="">` : ''}
+            <span class="project-nav__label">${copy.next_label}</span>
+            <h3 class="project-nav__title">${next.title}</h3>
+          </a>
+        </div>
+      </section>
+    `;
+
+    // ─── Char-by-char reveal do título ────────────
+    const titleEl = main.querySelector('.project-hero__title');
+    if (titleEl && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      splitChars(titleEl);
+      const chars = titleEl.querySelectorAll('.char');
+      chars.forEach((c, i) => {
+        setTimeout(() => c.classList.add('is-in'), 250 + i * 28);
+      });
+    }
+
+    // ─── Gallery mask reveal — IntersectionObserver
+    // threshold 0 (qualquer pixel visível dispara) porque o clip-path inicial
+    // colapsa a área renderizada e thresholds > 0 nunca seriam alcançados.
+    // rootMargin negativo no fundo pra disparar quando ~10% acima do bottom do viewport.
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const galleryItems = main.querySelectorAll('.project-gallery__item');
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-in');
+            io.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0, rootMargin: '0px 0px -10% 0px' });
+      galleryItems.forEach(el => io.observe(el));
+    } else {
+      main.querySelectorAll('.project-gallery__item').forEach(el => el.classList.add('is-in'));
+    }
+
+    // ─── Cinema lightbox bindings ─────────────────
+    main.querySelectorAll('.project-gallery__item').forEach(el => {
+      el.addEventListener('click', e => {
+        e.preventDefault();
+        openLb(parseInt(el.dataset.idx, 10) || 0);
+      });
+    });
+
+    // ─── Cursor label "VIEW" ──────────────────────
+    if (cursorLabel) {
+      main.querySelectorAll('.project-gallery__item').forEach(el => {
+        el.addEventListener('mouseenter', () => {
+          cursorLabel.classList.add('is-visible');
+          document.body.classList.add('cursor-view-active');
+        });
+        el.addEventListener('mouseleave', () => {
+          cursorLabel.classList.remove('is-visible');
+          document.body.classList.remove('cursor-view-active');
+        });
+      });
+    }
+
+    // Aplicar cursor hover nos elementos novos
+    if (typeof bindCursorHover === 'function') {
+      bindCursorHover(main.querySelectorAll('a, button'));
+    }
+
+    // ─── Animações de entrada do hero (Greensock) ─
+    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+      gsap.from('.project-hero__meta', { opacity: 0, y: 14, duration: 0.7, ease: 'power3.out', delay: 0.1 });
+      gsap.from('.project-hero__bottom > *', { opacity: 0, y: 18, duration: 0.8, ease: 'power3.out', delay: 0.6, stagger: 0.1 });
+    }
+
+    // ─── Scroll-driven scale/fade no hero title ───
+    const heroSection = main.querySelector('.project-hero');
+    if (heroSection && titleEl && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const onScroll = () => {
+        const rect = heroSection.getBoundingClientRect();
+        const progress = Math.max(0, Math.min(1, -rect.top / Math.max(rect.height, 1)));
+        const scale = 1 - progress * 0.06;
+        const ty = progress * -25;
+        const op = 1 - progress * 0.45;
+        titleEl.style.transform = `scale(${scale.toFixed(3)}) translateY(${ty.toFixed(2)}px)`;
+        titleEl.style.opacity = op.toFixed(3);
+      };
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+    }
+  }
+
+  // Mouse-follow do cursor-label
+  if (cursorLabel) {
+    document.addEventListener('mousemove', e => {
+      cursorLabel.style.left = e.clientX + 'px';
+      cursorLabel.style.top  = e.clientY + 'px';
+    });
+  }
+
+  // Re-render quando a língua mudar
+  window.addEventListener('amlangchange', renderProject);
+
+  // Render inicial
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', renderProject);
+  } else {
+    renderProject();
+  }
+})();
+</script>
+
+</body>
+</html>

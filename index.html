@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Andrey Miranda — Designer gráfico com quase 10 anos criando para marcas que exigem o máximo." />
+  <title>Andrey Miranda — Designer Gráfico</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300;1,9..40,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="portfolio.css?v=4.0" />
+  <style>
+    .work-card__link { width:100%; text-align:left; background:none; border:none; padding:0; display:block; }
+    .work-card__link:focus-visible { outline:2px solid var(--text); outline-offset:2px; }
+    #lightbox:focus { outline:none; }
+    .lightbox__media .ph { height:100%; min-height:400px; }
+    .about__image-wrap { background:transparent; }
+  </style>
+</head>
+<body>
+
+<!-- LOADER -->
+<div id="loader" aria-hidden="true">
+  <div class="loader__inner">
+    <span class="loader__name">Andrey Miranda</span>
+    <div class="loader__bar-wrap"><div class="loader__bar"></div></div>
+  </div>
+</div>
+
+<!-- CURSOR -->
+<div id="cursor-dot"  aria-hidden="true"></div>
+<div id="cursor-ring" aria-hidden="true"></div>
+
+<!-- HEADER -->
+<header id="header">
+  <nav class="nav container">
+    <a href="#" class="nav__logo">AM<span>.</span></a>
+    <ul class="nav__links">
+      <li><a href="#trabalhos" class="nav__link" data-i18n="nav.work">Trabalhos</a></li>
+      <li><a href="#processo"  class="nav__link" data-i18n="nav.process">Processo</a></li>
+      <li><a href="#sobre"     class="nav__link" data-i18n="nav.about">Sobre</a></li>
+      <li><a href="#blog"      class="nav__link" data-i18n="nav.blog">Blog</a></li>
+      <li><a href="#contato"   class="nav__link" data-i18n="nav.contact">Contato</a></li>
+    </ul>
+    <div class="nav__right">
+      <div class="lang-toggle" role="group" aria-label="Language">
+        <button class="lang-toggle__opt is-active" data-l="pt">PT</button>
+        <span class="lang-toggle__sep">/</span>
+        <button class="lang-toggle__opt" data-l="en">EN</button>
+      </div>
+      <button class="nav__menu-btn" aria-label="Abrir menu" aria-expanded="false">
+        <span></span><span></span>
+      </button>
+    </div>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+    <ul class="mobile-menu__links">
+      <li><a href="#trabalhos" class="mobile-menu__link" data-i18n="nav.work">Trabalhos</a></li>
+      <li><a href="#processo"  class="mobile-menu__link" data-i18n="nav.process">Processo</a></li>
+      <li><a href="#sobre"     class="mobile-menu__link" data-i18n="nav.about">Sobre</a></li>
+      <li><a href="#blog"      class="mobile-menu__link" data-i18n="nav.blog">Blog</a></li>
+      <li><a href="#contato"   class="mobile-menu__link" data-i18n="nav.contact">Contato</a></li>
+    </ul>
+    <div class="lang-toggle" role="group" aria-label="Language">
+      <button class="lang-toggle__opt is-active" data-l="pt">PT</button>
+      <span class="lang-toggle__sep">/</span>
+      <button class="lang-toggle__opt" data-l="en">EN</button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- HERO -->
+  <section id="hero" class="hero">
+    <canvas id="heroCanvas" class="hero__canvas" aria-hidden="true"></canvas>
+    <div class="hero__noise" aria-hidden="true"></div>
+
+    <!-- Cut-out figure + floating tool icons -->
+    <div class="hero__figure" aria-hidden="true">
+      <div class="hero__figure-inner">
+        <img class="hero__cutout" src="assets/profile/andrey-cutout.png" alt="" loading="eager" decoding="async">
+        <div class="hero__tools">
+          <div class="hero__tool hero__tool--ps">
+            <svg viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg"><rect width="50" height="50" rx="9" fill="#001C35"/><text x="5" y="37" fill="#31A8FF" font-size="25" font-weight="800" font-family="Arial Black,Arial,sans-serif">Ps</text></svg>
+            <span class="hero__tool-tip">Photoshop</span>
+          </div>
+          <div class="hero__tool hero__tool--ai">
+            <svg viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg"><rect width="50" height="50" rx="9" fill="#310000"/><text x="4" y="37" fill="#FF9A00" font-size="25" font-weight="800" font-family="Arial Black,Arial,sans-serif">Ai</text></svg>
+            <span class="hero__tool-tip">Illustrator</span>
+          </div>
+          <div class="hero__tool hero__tool--id">
+            <svg viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg"><rect width="50" height="50" rx="9" fill="#490021"/><text x="7" y="37" fill="#FF3366" font-size="25" font-weight="800" font-family="Arial Black,Arial,sans-serif">Id</text></svg>
+            <span class="hero__tool-tip">InDesign</span>
+          </div>
+          <div class="hero__tool hero__tool--ae">
+            <svg viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg"><rect width="50" height="50" rx="9" fill="#00005B"/><text x="3" y="37" fill="#9999FF" font-size="25" font-weight="800" font-family="Arial Black,Arial,sans-serif">Ae</text></svg>
+            <span class="hero__tool-tip">After Effects</span>
+          </div>
+          <div class="hero__tool hero__tool--figma">
+            <svg viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg"><rect width="50" height="50" rx="9" fill="#1A1A2E"/><rect x="15" y="8" width="11" height="11" rx="5.5" fill="#F24E1E"/><rect x="15" y="21" width="11" height="11" rx="5.5" fill="#A259FF"/><rect x="15" y="34" width="11" height="8" rx="4" fill="#0ACF83"/><circle cx="31" cy="14" r="5.5" fill="#FF7262"/><circle cx="31" cy="26" r="5.5" fill="#1ABCFE"/></svg>
+            <span class="hero__tool-tip">Figma</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container hero__content">
+      <div class="hero__text">
+        <div class="hero__eyebrow">
+          <span class="hero__tag" data-i18n="hero.tag1">Sports Designer</span>
+          <span class="hero__tag" data-i18n="hero.tag2">Motorsport · Futebol · Esports</span>
+          <span class="hero__tag hero__available"><span class="hero__dot"></span><span data-i18n="hero.available">Disponível para projetos</span></span>
+        </div>
+        <h1 class="hero__title">
+          <div class="line-wrap"><span class="hero__line" data-i18n="hero.line1">Fazendo esporte</span></div>
+          <div class="line-wrap"><span class="hero__line"><em data-i18n="hero.line2">parecer como</em></span></div>
+          <div class="line-wrap"><span class="hero__line" data-i18n="hero.line3">deve ser.</span></div>
+        </h1>
+        <div class="hero__bottom">
+          <p class="hero__desc" data-i18n="hero.desc">Sports design para equipes, atletas e marcas ao redor do mundo.</p>
+          <a href="#trabalhos" class="btn btn--primary magnetic"><span data-i18n="hero.cta">Ver trabalhos →</span></a>
+        </div>
+      </div>
+    </div>
+    <div class="hero__scroll-hint" aria-hidden="true">
+      <span>Scroll</span>
+      <div class="hero__scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- CLIENTES -->
+  <section class="clients" aria-label="Marcas e clientes" style="background-color:#0F0F0F;color:white">
+    <div class="container">
+      <p class="clients__label" data-i18n="clients.label">Marcas &amp; Clientes</p>
+      <div class="clients__grid">
+        <figure class="client-logo"><img src="assets/clients/Emirates.png"       alt="Emirates"       class="client-logo__img" loading="lazy"></figure>
+        <figure class="client-logo"><img src="assets/clients/PSG.png"            alt="PSG"            class="client-logo__img" loading="lazy"></figure>
+        <figure class="client-logo"><img src="assets/clients/Weplay.png"         alt="WePlay"         class="client-logo__img" loading="lazy"></figure>
+        <figure class="client-logo"><img src="assets/clients/Iron Dames.png"     alt="Iron Dames"     class="client-logo__img" loading="lazy"></figure>
+        <figure class="client-logo"><img src="assets/clients/Nascar Brasil.png"  alt="Nascar Brasil"  class="client-logo__img" loading="lazy"></figure>
+        <figure class="client-logo"><img src="assets/clients/UAE.png"            alt="UAE Tour"       class="client-logo__img" loading="lazy"></figure>
+        <figure class="client-logo"><img src="assets/clients/Asian Tour.png"     alt="Asian Tour"     class="client-logo__img" loading="lazy"></figure>
+        <figure class="client-logo"><img src="assets/clients/Leipert.png"        alt="Leipert"        class="client-logo__img" loading="lazy"></figure>
+        <figure class="client-logo"><img src="assets/clients/Xstadium.png"       alt="Xstadium"       class="client-logo__img" loading="lazy"></figure>
+        <figure class="client-logo"><img src="assets/clients/ECA.png"            alt="ECA"            class="client-logo__img" loading="lazy"></figure>
+        <figure class="client-logo"><img src="assets/clients/Fach Auto Tech.png" alt="Fach Auto Tech" class="client-logo__img" loading="lazy"></figure>
+        <figure class="client-logo"><img src="assets/clients/Heberth.png"        alt="Heberth"        class="client-logo__img" loading="lazy"></figure>
+        <figure class="client-logo"><img src="assets/clients/Just Authentic.png" alt="Just Authentic" class="client-logo__img" loading="lazy"></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRABALHOS -->
+  <section id="trabalhos" class="work">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label" data-i18n="work.label">Trabalhos Selecionados</span>
+        <h2 class="section-title">
+          <div class="line-wrap"><span class="title-line" data-i18n="work.t1">O que</span></div>
+          <div class="line-wrap"><span class="title-line"><em data-i18n="work.t2">eu faço.</em></span></div>
+        </h2>
+      </div>
+    </div>
+    <!-- Grid is full-bleed (no container padding) for editorial impact -->
+    <div class="work__grid" id="workGrid"></div>
+  </section>
+
+  <!-- PROCESSO -->
+  <section id="processo" class="process">
+    <div class="container">
+      <div class="process__inner">
+        <div class="process__left">
+          <div class="section-header">
+            <span class="section-label" data-i18n="process.label">Como trabalho</span>
+            <h2 class="section-title">
+              <div class="line-wrap"><span class="title-line" data-i18n="process.t1">Como</span></div>
+              <div class="line-wrap"><span class="title-line"><em data-i18n="process.t2">trabalho.</em></span></div>
+            </h2>
+          </div>
+          <div class="process__steps" id="processSteps"></div>
+        </div>
+        <div class="process__right" aria-hidden="true">
+          <div class="process__photo-wrap">
+            <img
+              class="process__photo"
+              src="assets/profile/andrey-processo.jpg"
+              alt=""
+              loading="lazy"
+              decoding="async"
+            >
+            <div class="process__photo-vignette"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOBRE -->
+  <section id="sobre" class="about">
+    <div class="container">
+      <div class="about__grid">
+        <div class="about__image-col">
+          <div class="about__image-wrap">
+            <img src="assets/profile/andrey-about.jpg" alt="Andrey Miranda, Sports Designer" class="about__image" loading="lazy" />
+            <div class="about__image-grad"></div>
+          </div>
+        </div>
+        <div class="about__content">
+          <span class="section-label about__label" data-i18n="about.label">Sobre mim</span>
+          <h2 class="section-title about__title">
+            <div class="line-wrap"><span class="title-line" data-i18n="about.t1">Onde o esporte</span></div>
+            <div class="line-wrap"><span class="title-line"><em data-i18n="about.t2">encontra o design.</em></span></div>
+          </h2>
+          <p class="about__text" data-i18n="about.p1">Comecei a trabalhar com design muito cedo, sempre buscando aprender mais. Hoje, com quase 10 anos de experiência, estou focado no Design Esportivo — criando composições cinemáticas que transformam atletas e equipes em ícones visuais.</p>
+          <p class="about__text" data-i18n-html="about.p2html">Atualmente na <strong>WePlay</strong> (Londres), produzo conteúdo visual para esportes e esports ao redor do mundo. Paralelamente, atendo clientes freelance — de equipes de motorsport europeias a marcas de futebol e entretenimento esportivo.</p>
+          <div class="about__stats">
+            <div class="stat">
+              <div class="stat__top"><span class="stat__number" data-target="50">0</span><span class="stat__plus">+</span></div>
+              <span class="stat__label" data-i18n="about.s1">Projetos</span>
+            </div>
+            <div class="stat">
+              <div class="stat__top"><span class="stat__number" data-target="10">0</span><span class="stat__plus">+</span></div>
+              <span class="stat__label" data-i18n="about.s2">Anos de experiência</span>
+            </div>
+            <div class="stat">
+              <div class="stat__top"><span class="stat__number" data-target="3">0</span><span class="stat__plus"></span></div>
+              <span class="stat__label" data-i18n="about.s3">Continentes</span>
+            </div>
+          </div>
+          <div class="about__skills">
+            <span class="skill-tag">Sports Design</span>
+            <span class="skill-tag">Motorsport</span>
+            <span class="skill-tag">Football Design</span>
+            <span class="skill-tag">Photo Manipulation</span>
+            <span class="skill-tag">Poster Design</span>
+            <span class="skill-tag">Social Media</span>
+            <span class="skill-tag">Motion Design</span>
+            <span class="skill-tag">Photoshop</span>
+            <span class="skill-tag">Illustrator</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BLOG -->
+  <section id="blog" class="blog">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label" data-i18n="blog.label">Blog</span>
+        <h2 class="section-title">
+          <div class="line-wrap"><span class="title-line" data-i18n="blog.t1">Pensamentos</span></div>
+          <div class="line-wrap"><span class="title-line"><em data-i18n="blog.t2">sobre design.</em></span></div>
+        </h2>
+      </div>
+      <div class="blog__grid" id="blogGrid"></div>
+    </div>
+  </section>
+
+  <!-- CONTATO -->
+  <section id="contato" class="contact">
+    <div class="container">
+      <div class="contact__grid">
+        <div class="contact__left">
+          <span class="section-label" data-i18n="contact.label">Contato</span>
+          <h2 class="section-title contact__title">
+            <div class="line-wrap"><span class="title-line" data-i18n="contact.t1">Vamos criar</span></div>
+            <div class="line-wrap"><span class="title-line"><em data-i18n="contact.t2">projeto?</em></span></div>
+          </h2>
+          <p class="contact__desc" data-i18n="contact.desc">Tem um projeto esportivo em mente? Me conta. Atendo clientes de todo o mundo.</p>
+          <div class="contact__socials">
+            <a href="https://www.instagram.com/andreymirandadesigner/" target="_blank" rel="noopener noreferrer" class="social-link magnetic">Instagram</a>
+            <a href="https://www.behance.net/andreymirandaa"           target="_blank" rel="noopener noreferrer" class="social-link magnetic">Behance</a>
+            <a href="https://www.linkedin.com/in/andrey-miranda-a0bb9a1b4/" target="_blank" rel="noopener noreferrer" class="social-link magnetic">LinkedIn</a>
+          </div>
+        </div>
+        <div class="contact__right">
+          <form id="contactForm" class="contact-form" novalidate>
+            <div class="form-group">
+              <label for="cfName" class="form-label" data-i18n="contact.name">Nome</label>
+              <input type="text" id="cfName" name="name" class="form-input" placeholder="Seu nome completo" data-i18n-ph="contact.ph.name" required autocomplete="name" />
+              <span class="form-error" id="cfNameErr" role="alert"></span>
+            </div>
+            <div class="form-group">
+              <label for="cfEmail" class="form-label" data-i18n="contact.email">E-mail</label>
+              <input type="email" id="cfEmail" name="email" class="form-input" placeholder="seu@email.com" data-i18n-ph="contact.ph.email" required autocomplete="email" />
+              <span class="form-error" id="cfEmailErr" role="alert"></span>
+            </div>
+            <div class="form-group">
+              <label for="cfMsg" class="form-label" data-i18n="contact.msg">Mensagem</label>
+              <textarea id="cfMsg" name="message" class="form-input form-textarea" placeholder="Me conta sobre seu projeto..." data-i18n-ph="contact.ph.msg" rows="5" required></textarea>
+              <span class="form-error" id="cfMsgErr" role="alert"></span>
+            </div>
+            <button type="submit" class="btn btn--dark btn--full magnetic" id="cfSubmit">
+              <span class="btn__text" data-i18n="contact.submit">Enviar mensagem</span>
+              <span class="btn__loading" data-i18n="contact.sending">Enviando...</span>
+            </button>
+            <div class="form-success" id="cfSuccess" aria-live="polite">
+              <span data-i18n="contact.ok">✓ Mensagem enviada! Entrarei em contato em breve.</span>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer__inner">
+      <span class="footer__copy" data-i18n="footer.copy">© 2026 Andrey Miranda</span>
+      <a href="#" class="footer__top magnetic" data-i18n="footer.top">↑ Voltar ao topo</a>
+    </div>
+  </div>
+</footer>
+
+<!-- LIGHTBOX -->
+<div id="lbBackdrop" class="lightbox-backdrop" aria-hidden="true"></div>
+<div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Project detail" tabindex="-1">
+  <div class="lightbox__media" id="lbMedia"></div>
+  <div class="lightbox__info">
+    <div class="lightbox__meta">
+      <span class="lightbox__num" id="lbNum">01</span>
+      <span class="lightbox__cat" id="lbCat"></span>
+    </div>
+    <h3 class="lightbox__title" id="lbTitle"></h3>
+    <p  class="lightbox__desc"  id="lbDesc"></p>
+    <a href="#" class="btn btn--outline magnetic" id="lbLink" target="_blank" rel="noopener noreferrer">Ver no Behance →</a>
+    <div class="lightbox__nav">
+      <span class="lightbox__counter" id="lbCounter">1 / 5</span>
+      <button class="lightbox__arrow magnetic" id="lbPrev" aria-label="Projeto anterior">←</button>
+      <button class="lightbox__arrow magnetic" id="lbNext" aria-label="Próximo projeto">→</button>
+    </div>
+  </div>
+  <button class="lightbox__close magnetic" id="lbClose" aria-label="Fechar">✕</button>
+</div>
+
+<!-- TWEAKS -->
+<div id="tweaksPanel" class="tweaks-panel" style="display:none" aria-label="Tweaks">
+  <h4 class="tweaks-panel__title">Tweaks</h4>
+  <div class="tweaks-row">
+    <label for="twkGridSpeed">Velocidade da grade</label>
+    <input type="range" id="twkGridSpeed" min="0.1" max="2" step="0.05" value="0.55">
+  </div>
+  <div class="tweaks-row">
+    <label for="twkGridOpacity">Opacidade da grade</label>
+    <input type="range" id="twkGridOpacity" min="0.02" max="0.3" step="0.01" value="0.09">
+  </div>
+  <div class="tweaks-row">
+    <label for="twkCursorLag">Suavidade do cursor</label>
+    <input type="range" id="twkCursorLag" min="0.04" max="0.35" step="0.01" value="0.11">
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="portfolio.js?v=4.0"></script>
+</body>
+</html>
