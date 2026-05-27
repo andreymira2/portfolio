@@ -1205,11 +1205,26 @@ function initContact() {
     if (!msg.value.trim())   { showErr('cfMsgErr',   t('form.err.msg'));   msg.classList.add('has-error');   err = true; }
     if (err) return;
     btn.classList.add('is-loading'); btn.disabled = true;
-    await new Promise(r => setTimeout(r, 600));
-    const subject = encodeURIComponent(currentLang === 'pt' ? 'Contato pelo portfólio' : 'Portfolio inquiry');
-    const body    = encodeURIComponent(`${currentLang === 'pt' ? 'Nome' : 'Name'}: ${name.value.trim()}\nE-mail: ${email.value.trim()}\n\n${msg.value.trim()}`);
-    window.open(`mailto:mirandadesignr@hotmail.com?subject=${subject}&body=${body}`);
-    succ.classList.add('is-visible'); btn.classList.remove('is-loading'); btn.disabled = false; form.reset();
+    try {
+      const res = await fetch('https://formspree.io/f/mvzydayj', {
+        method: 'POST',
+        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name:    name.value.trim(),
+          email:   email.value.trim(),
+          message: msg.value.trim()
+        })
+      });
+      if (res.ok) {
+        succ.classList.add('is-visible');
+        form.reset();
+      } else {
+        alert(currentLang === 'pt' ? 'Erro ao enviar. Tente novamente.' : 'Error sending. Please try again.');
+      }
+    } catch {
+      alert(currentLang === 'pt' ? 'Erro de conexão. Tente novamente.' : 'Connection error. Please try again.');
+    }
+    btn.classList.remove('is-loading'); btn.disabled = false;
   });
   form.querySelectorAll('.form-input').forEach(inp => {
     inp.addEventListener('input', () => {
