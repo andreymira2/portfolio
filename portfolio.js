@@ -381,10 +381,28 @@ const POSTS = [
     url: 'https://www.linkedin.com/posts/andrey-miranda-a0bb9a1b4_monday-night-under-the-lights-at-the-miami-activity-7407092823780438016-g-zp',
   },
   {
+    date: { pt: 'Nov 2025', en: 'Nov 2025' },
+    title: { pt: 'WePlay × Miami Invitational — identidade, mídia paga e ticketing', en: 'WePlay × Miami Invitational — identity, paid media & ticketing' },
+    excerpt: { pt: 'Transformamos um estádio de baseball de Miami numa arena de tênis de alto nível. Alcaraz, Fonseca, Raducanu e Anisimova em campo — e toda a identidade visual e estratégia de mídia por trás disso.', en: 'We turned a Miami baseball stadium into a world-class tennis arena. Alcaraz, Fonseca, Raducanu and Anisimova on court — with the full visual identity and media strategy behind it.' },
+    url: 'https://www.linkedin.com/posts/weplayco_want-to-see-the-worlds-best-tennis-players-activity-7389665168495894528-LvcO',
+  },
+  {
     date: { pt: 'Out 2025', en: 'Oct 2025' },
     title: { pt: 'Experimentando pintura a óleo no sports design', en: 'Experimenting with oil painting texture in sports design' },
     excerpt: { pt: 'Me deparei com esse estilo em alguns designers e precisei testar. O resultado virou peças para US Open e FIFA Club World Cup dentro do XStadium VR.', en: 'I came across this style in a few designers\' work and had to try it. The result ended up as pieces for the US Open and FIFA Club World Cup inside XStadium VR.' },
     url: 'https://www.linkedin.com/posts/andrey-miranda-a0bb9a1b4_i-came-across-this-style-in-a-few-designers-activity-7382020616670851072-MtyG',
+  },
+  {
+    date: { pt: 'Ago 2025', en: 'Aug 2025' },
+    title: { pt: 'XStadium chega ao Reino Unido no Meta Quest', en: 'XStadium launches in the UK on Meta Quest' },
+    excerpt: { pt: 'A WePlay entra como parceira oficial de marketing do XStadium no Reino Unido: experiências imersivas de VR com Wimbledon, X Games e PSG na temporada europeia.', en: 'WePlay becomes the official marketing partner for XStadium\'s UK launch: immersive VR experiences featuring Wimbledon, X Games and PSG\'s European season.' },
+    url: 'https://www.linkedin.com/posts/weplayco_xtadium-launches-in-the-uk-as-the-official-ugcPost-7361775119200919554-_IPL',
+  },
+  {
+    date: { pt: 'Jun 2025', en: 'Jun 2025' },
+    title: { pt: 'PSG conquista a Champions League Feminina — impacto global', en: 'PSG wins the Women\'s Champions League — global impact' },
+    excerpt: { pt: '3,3 milhões de novos seguidores, 2 bilhões de impressões e +1.000% de views no Instagram em uma semana. Estratégia de conteúdo localizada em 10 países para o maior momento do clube.', en: '3.3M new followers, 2 billion impressions and +1,000% Instagram views in one week. Localized content strategy across 10 countries for the club\'s biggest moment.' },
+    url: 'https://www.linkedin.com/posts/paris-saint-germain_psg-uwcl-psgimpact-ugcPost-7338132141215506432-lgVg',
   },
 ];
 
