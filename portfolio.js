@@ -182,6 +182,8 @@ const LANG = {
 };
 
 let currentLang = localStorage.getItem('am_lang') || 'pt';
+let blogPage    = 0;
+const BLOG_PER_PAGE = 3;
 
 function t(key) { return LANG[currentLang][key] || key; }
 
@@ -373,36 +375,42 @@ const POSTS = [
     title: { pt: 'Designers vs. IA: por que eu não estou preocupado', en: 'Designers vs. AI: why I\'m not worried' },
     excerpt: { pt: 'Todo mês surge uma nova ferramenta que vai "substituir designers". Mas o diferencial nunca foi o software — é o olhar treinado para o que funciona visualmente.', en: 'Every month there\'s a new tool that\'s going to "replace designers." But the edge was never the software — it\'s the trained eye for what actually works.' },
     url: 'https://www.linkedin.com/posts/andrey-miranda-a0bb9a1b4_every-month-theres-a-new-tool-thats-going-share-7453541098813046784-6tIU/',
+    img: null, // assets/blog/designers-vs-ai.jpg
   },
   {
     date: { pt: 'Dez 2025', en: 'Dec 2025' },
     title: { pt: 'Monday night under the lights — Miami Invitational', en: 'Monday night under the lights — Miami Invitational' },
     excerpt: { pt: 'Por dentro da identidade visual completa do Miami Invitational: da motion a cada peça estática que levou o torneio ao próximo nível ao lado de Carlos Alcaraz.', en: 'Inside the full visual identity of the Miami Invitational: from motion to every static piece that elevated the tournament alongside Carlos Alcaraz.' },
     url: 'https://www.linkedin.com/posts/andrey-miranda-a0bb9a1b4_monday-night-under-the-lights-at-the-miami-activity-7407092823780438016-g-zp',
+    img: null, // assets/blog/miami-invitational.jpg
   },
   {
     date: { pt: 'Nov 2025', en: 'Nov 2025' },
     title: { pt: 'WePlay × Miami Invitational — identidade, mídia paga e ticketing', en: 'WePlay × Miami Invitational — identity, paid media & ticketing' },
     excerpt: { pt: 'Transformamos um estádio de baseball de Miami numa arena de tênis de alto nível. Alcaraz, Fonseca, Raducanu e Anisimova em campo — e toda a identidade visual e estratégia de mídia por trás disso.', en: 'We turned a Miami baseball stadium into a world-class tennis arena. Alcaraz, Fonseca, Raducanu and Anisimova on court — with the full visual identity and media strategy behind it.' },
     url: 'https://www.linkedin.com/posts/weplayco_want-to-see-the-worlds-best-tennis-players-activity-7389665168495894528-LvcO',
+    img: null, // assets/blog/weplay-miami.jpg
   },
   {
     date: { pt: 'Out 2025', en: 'Oct 2025' },
     title: { pt: 'Experimentando pintura a óleo no sports design', en: 'Experimenting with oil painting texture in sports design' },
     excerpt: { pt: 'Me deparei com esse estilo em alguns designers e precisei testar. O resultado virou peças para US Open e FIFA Club World Cup dentro do XStadium VR.', en: 'I came across this style in a few designers\' work and had to try it. The result ended up as pieces for the US Open and FIFA Club World Cup inside XStadium VR.' },
     url: 'https://www.linkedin.com/posts/andrey-miranda-a0bb9a1b4_i-came-across-this-style-in-a-few-designers-activity-7382020616670851072-MtyG',
+    img: null, // assets/blog/oil-painting-texture.jpg
   },
   {
     date: { pt: 'Ago 2025', en: 'Aug 2025' },
     title: { pt: 'XStadium chega ao Reino Unido no Meta Quest', en: 'XStadium launches in the UK on Meta Quest' },
     excerpt: { pt: 'A WePlay entra como parceira oficial de marketing do XStadium no Reino Unido: experiências imersivas de VR com Wimbledon, X Games e PSG na temporada europeia.', en: 'WePlay becomes the official marketing partner for XStadium\'s UK launch: immersive VR experiences featuring Wimbledon, X Games and PSG\'s European season.' },
     url: 'https://www.linkedin.com/posts/weplayco_xtadium-launches-in-the-uk-as-the-official-ugcPost-7361775119200919554-_IPL',
+    img: null, // assets/blog/xtadium-uk.jpg
   },
   {
     date: { pt: 'Jun 2025', en: 'Jun 2025' },
     title: { pt: 'PSG conquista a Champions League Feminina — impacto global', en: 'PSG wins the Women\'s Champions League — global impact' },
     excerpt: { pt: '3,3 milhões de novos seguidores, 2 bilhões de impressões e +1.000% de views no Instagram em uma semana. Estratégia de conteúdo localizada em 10 países para o maior momento do clube.', en: '3.3M new followers, 2 billion impressions and +1,000% Instagram views in one week. Localized content strategy across 10 countries for the club\'s biggest moment.' },
     url: 'https://www.linkedin.com/posts/paris-saint-germain_psg-uwcl-psgimpact-ugcPost-7338132141215506432-lgVg',
+    img: null, // assets/blog/psg-uwcl.jpg
   },
 ];
 
@@ -506,10 +514,14 @@ function renderProcess() {
 function renderBlog() {
   const el = document.getElementById('blogGrid');
   if (!el) return;
-  el.innerHTML = POSTS.map(p => `
+  const start = blogPage * BLOG_PER_PAGE;
+  const page  = POSTS.slice(start, start + BLOG_PER_PAGE);
+  el.innerHTML = page.map(p => `
     <article class="blog-card">
       <div class="blog-card__image-wrap">
-        <div class="ph"><span class="ph__label">${t('ph.blog')}</span></div>
+        ${p.img
+          ? `<img src="${p.img}" alt="${p.title[currentLang]}" loading="lazy" decoding="async">`
+          : `<div class="ph"><span class="ph__label">${t('ph.blog')}</span></div>`}
       </div>
       <div class="blog-card__body">
         <span class="blog-card__date">${p.date[currentLang]}</span>
@@ -519,6 +531,57 @@ function renderBlog() {
       </div>
     </article>
   `).join('');
+  updateBlogNav();
+}
+
+function updateBlogNav() {
+  const prevBtn = document.getElementById('blogPrev');
+  const nextBtn = document.getElementById('blogNext');
+  const counter = document.getElementById('blogNavCounter');
+  if (!prevBtn || !nextBtn) return;
+  const totalPages = Math.ceil(POSTS.length / BLOG_PER_PAGE);
+  prevBtn.disabled = blogPage === 0;
+  nextBtn.disabled = blogPage >= totalPages - 1;
+  if (counter) counter.textContent = `${blogPage + 1} / ${totalPages}`;
+}
+
+function renderBlogAnimated(dir) {
+  const el = document.getElementById('blogGrid');
+  if (!el || typeof gsap === 'undefined') { renderBlog(); return; }
+  gsap.to(el, {
+    opacity: 0, x: dir * 28, duration: 0.18, ease: 'power2.in',
+    onComplete: () => {
+      renderBlog();
+      gsap.fromTo(el,
+        { opacity: 0, x: -dir * 28 },
+        { opacity: 1, x: 0, duration: 0.3, ease: 'power2.out' }
+      );
+    }
+  });
+}
+
+function initBlogNav() {
+  const totalPages = Math.ceil(POSTS.length / BLOG_PER_PAGE);
+  if (totalPages <= 1) return;
+  const grid = document.getElementById('blogGrid');
+  if (!grid || document.getElementById('blogNav')) return;
+  const nav = document.createElement('div');
+  nav.className = 'blog__nav';
+  nav.id = 'blogNav';
+  nav.innerHTML = `
+    <span class="blog__nav-counter" id="blogNavCounter">1 / ${totalPages}</span>
+    <div class="blog__nav-btns">
+      <button class="blog__nav-btn" id="blogPrev" aria-label="Posts anteriores">←</button>
+      <button class="blog__nav-btn" id="blogNext" aria-label="Próximos posts">→</button>
+    </div>`;
+  grid.parentNode.insertBefore(nav, grid);
+  document.getElementById('blogPrev').addEventListener('click', () => {
+    if (blogPage > 0) { blogPage--; renderBlogAnimated(-1); }
+  });
+  document.getElementById('blogNext').addEventListener('click', () => {
+    if (blogPage < totalPages - 1) { blogPage++; renderBlogAnimated(1); }
+  });
+  updateBlogNav();
 }
 
 /* ─── HERO CANVAS ────────────────────────────── */
@@ -1309,6 +1372,7 @@ document.addEventListener('DOMContentLoaded', () => {
   renderProjects();
   renderProcess();
   renderBlog();
+  initBlogNav();
 
   // Apply saved language
   applyLang(currentLang);
