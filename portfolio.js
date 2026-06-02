@@ -312,7 +312,7 @@ const PROJECTS = [
     cat:   { pt: 'Equestrian Design', en: 'Equestrian Design' },
     title: 'Iron Dames — Equestrian',
     caption: { pt: 'Hipismo mundial — Shanghai, Paris, Londres, Madri, Roma, NY.', en: 'World equestrian — Shanghai, Paris, London, Madrid, Rome, NY.' },
-    cover: 'assets/projects/Iron Dames Equestrian/Shangahi Creative Artwork.jpg',
+    cover: 'assets/projects/Iron Dames Equestrian/ID_Event Announcement Static_Cannes.png',
     images: [
       'assets/projects/Iron Dames Equestrian/Shangahi Creative Artwork.jpg',
       'assets/projects/Iron Dames Equestrian/ID_Event Announcement Static_Paris.jpg',
