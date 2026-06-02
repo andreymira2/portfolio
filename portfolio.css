@@ -71,11 +71,11 @@ section { padding: var(--sp-2xl) 0; }
 /* ─── CURSOR ─────────────────────────────────── */
 #cursor-dot, #cursor-ring { position:fixed; top:0; left:0; pointer-events:none; z-index:9998; border-radius:50%; transform:translate(-50%,-50%); will-change:transform; }
 #cursor-dot { width:5px; height:5px; background:var(--text); }
-#cursor-ring { width:34px; height:34px; border:1.5px solid rgba(15,15,15,0.35); transition: width .35s var(--ease-out), height .35s var(--ease-out), background .35s var(--ease-out), border-color .35s var(--ease-out), opacity .3s; }
-#cursor-ring.is-hovering { width:52px; height:52px; background:rgba(15,15,15,0.05); border-color:rgba(15,15,15,0.18); }
+#cursor-ring { width:34px; height:34px; border:1.5px solid rgba(15,15,15,0.55); transition: width .35s var(--ease-out), height .35s var(--ease-out), background .35s var(--ease-out), border-color .35s var(--ease-out), opacity .3s; }
+#cursor-ring.is-hovering { width:52px; height:52px; background:rgba(15,15,15,0.06); border-color:rgba(15,15,15,0.3); }
 body.cursor-light #cursor-dot { background:var(--white); }
-body.cursor-light #cursor-ring { border-color:rgba(255,255,255,0.35); }
-body.cursor-light #cursor-ring.is-hovering { background:rgba(255,255,255,0.08); border-color:rgba(255,255,255,0.2); }
+body.cursor-light #cursor-ring { border-color:rgba(255,255,255,0.6); }
+body.cursor-light #cursor-ring.is-hovering { background:rgba(255,255,255,0.08); border-color:rgba(255,255,255,0.35); }
 @media (hover:none) { #cursor-dot,#cursor-ring{display:none} body,a,button{cursor:auto} }
 
 /* ─── NAV ────────────────────────────────────── */

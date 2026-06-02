@@ -666,6 +666,44 @@
     @media (hover: none) {
       #cursor-label { display: none; }
     }
+
+    /* ─── EQUESTRIAN GALLERY (iron-dames-equestrian) ─── */
+    .eq-gallery { background: #080808; padding: 2.5rem 0 4rem; }
+    .eq-bubble-wrap {
+      width: 100%; max-width: var(--container, 1320px);
+      margin: 0 auto; padding: 0 clamp(1.5rem, 5vw, 5rem);
+    }
+    .eq-bubble-grid { display: flex; flex-wrap: wrap; gap: 4px; }
+    .eq-bubble-item {
+      width: 162px; aspect-ratio: 4/5; flex-shrink: 0;
+      overflow: hidden; border-radius: 4px; background: #111;
+      cursor: pointer; border: none; padding: 0;
+      outline: 1.5px solid transparent; outline-offset: 2px;
+      transition: outline-color 0.15s ease;
+    }
+    .eq-bubble-item:hover { outline-color: rgba(255,255,255,0.5); }
+    .eq-bubble-item img {
+      width: 100%; height: 100%; object-fit: cover;
+      display: block; pointer-events: none;
+    }
+    /* Preview flutuante */
+    .eq-preview {
+      position: fixed; top: 0; left: 0;
+      width: 340px; aspect-ratio: 4/5;
+      pointer-events: none; z-index: 9000;
+      border-radius: 8px; overflow: hidden;
+      box-shadow: 0 28px 80px rgba(0,0,0,0.75), 0 0 0 1px rgba(255,255,255,0.07);
+      will-change: transform, opacity;
+      opacity: 0;
+    }
+    .eq-preview img {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+    }
+    @media (max-width: 600px) {
+      .eq-bubble-item { width: calc(50% - 2px); }
+      .eq-preview { display: none; }
+    }
   </style>
 </head>
 <body data-page="project">
@@ -755,6 +793,53 @@
   let lbImgs = [];
   let lbIdx = 0;
   let lb = null;
+
+  /* ─── IRON DAMES EQUESTRIAN — imagens categorizadas ─── */
+  const BASE_EQ = 'assets/projects/Iron Dames Equestrian/';
+  const EQ_IMAGES = [
+    // Anúncios de Evento
+    { src: BASE_EQ + 'ID_Event Announcement Static_Cannes.png',       cat: 'announcement', label: 'Cannes' },
+    { src: BASE_EQ + 'ID_Event Announcement Static_London.png',       cat: 'announcement', label: 'London' },
+    { src: BASE_EQ + 'ID_Event Announcement Static_Madrid.png',       cat: 'announcement', label: 'Madrid' },
+    { src: BASE_EQ + 'ID_Event Announcement Static_Monaco.png',       cat: 'announcement', label: 'Monaco' },
+    { src: BASE_EQ + 'ID_Event Announcement Static_NewYork.png',      cat: 'announcement', label: 'New York' },
+    { src: BASE_EQ + 'ID_Event Announcement Static_Paris.png',        cat: 'announcement', label: 'Paris' },
+    { src: BASE_EQ + 'ID_Event Announcement Static_Rabat.png',        cat: 'announcement', label: 'Rabat' },
+    { src: BASE_EQ + 'ID_Event Announcement Static_Riesenbeck.png',   cat: 'announcement', label: 'Riesenbeck' },
+    { src: BASE_EQ + 'ID_Event Announcement Static_Riyadh.png',       cat: 'announcement', label: 'Riyadh' },
+    { src: BASE_EQ + 'ID_Event Announcement Static_Rome.png',         cat: 'announcement', label: 'Rome' },
+    { src: BASE_EQ + 'ID_Event Announcement Static_St. Tropez.png',   cat: 'announcement', label: 'St. Tropez' },
+    { src: BASE_EQ + 'ID_Event Announcement Static_Valkenswaard.png', cat: 'announcement', label: 'Valkenswaard' },
+    // Equipes
+    { src: BASE_EQ + 'Cannes Stars Team Announcemt.png',  cat: 'team', label: 'Cannes Stars' },
+    { src: BASE_EQ + 'Monaco Comets Team Announcemt.png', cat: 'team', label: 'Monaco Comets' },
+    // Resultados
+    { src: BASE_EQ + 'ID_Winner Graphic London 4x5.png',              cat: 'winner', label: 'London' },
+    { src: BASE_EQ + 'ID_Winner Graphic Paris CS 4x5.png',            cat: 'winner', label: 'Paris' },
+    { src: BASE_EQ + 'ID_Winner Graphic Shanghai CS 4x5.png',         cat: 'winner', label: 'Shanghai CS' },
+    { src: BASE_EQ + 'ID_Winner Graphic Shanghai MC 4x5.png',         cat: 'winner', label: 'Shanghai MC' },
+    { src: BASE_EQ + 'ID_Winner Graphic_St Tropez_Cannes 4x5.png',    cat: 'winner', label: 'St. Tropez' },
+    { src: BASE_EQ + 'ID_Winner Graphic Cannes Cannes 4x5.png',       cat: 'winner', label: 'Cannes' },
+    { src: BASE_EQ + 'ID_Winner Graphic Cannes Monaco 4x5_.png',      cat: 'winner', label: 'Monaco' },
+    { src: BASE_EQ + 'ID_Winner_Cannes Graphic Valkenswaard 4x5.png', cat: 'winner', label: 'Valkenswaard' },
+    { src: BASE_EQ + 'ID_Winner_Cannes Graphic Valkenswaard 16x9.png',cat: 'winner', label: 'Valkenswaard 16:9' },
+    // Campeãs
+    { src: BASE_EQ + 'Champions_Cannes Stars.png',           cat: 'champion', label: 'Champions Cannes Stars' },
+    { src: BASE_EQ + 'Cannes Stars Winner Graphic 4X5.png',  cat: 'champion', label: 'Cannes Stars Winner' },
+    { src: BASE_EQ + 'Monaco Comets Winner Graphic 4X5.png', cat: 'champion', label: 'Monaco Comets Winner' },
+    // Rider do Mês
+    { src: BASE_EQ + 'Rider of the month_4x5.png',   cat: 'rider', label: 'Rider of the Month 1' },
+    { src: BASE_EQ + 'Rider of the month_2_4x5.png', cat: 'rider', label: 'Rider of the Month 2' },
+    { src: BASE_EQ + 'Rider of the month_3_4x5.png', cat: 'rider', label: 'Rider of the Month 3' },
+    { src: BASE_EQ + 'Rider of the month_4_4x5.png', cat: 'rider', label: 'Rider of the Month 4' },
+    { src: BASE_EQ + 'Rider of the month_5_4x5.png', cat: 'rider', label: 'Rider of the Month 5' },
+    // Especiais
+    { src: BASE_EQ + 'Shangahi Creative Artwork.png',  cat: 'special', label: 'Shanghai Creative Artwork' },
+    { src: BASE_EQ + 'ID_Event In Home_Monaco.png',    cat: 'special', label: 'Monaco In-Home' },
+    { src: BASE_EQ + '3 Days to go Mexico.png',        cat: 'special', label: '3 Days to Go — Mexico' },
+    { src: BASE_EQ + 'NY_Teaser.png',                  cat: 'special', label: 'New York Teaser' },
+    { src: BASE_EQ + 'Prague_Playoffs_4x5.png',        cat: 'special', label: 'Prague Playoffs' },
+  ];
 
   function ensureLightbox() {
     if (lb) return lb;
@@ -908,6 +993,20 @@
       </button>`;
     }).join('');
 
+    // Galeria customizada para Iron Dames Equestrian
+    const isEquestrian = p.slug === 'iron-dames-equestrian';
+    const catLabels = { announcement: 'Eventos', team: 'Equipes', winner: 'Resultados', champion: 'Campeãs', rider: 'Rider do Mês', special: 'Especiais' };
+    const eqTabsHtml = Object.entries(catLabels).map(([k, v]) => {
+      const n = EQ_IMAGES.filter(i => i.cat === k).length;
+      return `<button class="eq-tab" data-cat="${k}">${v} <span style="opacity:.45">${n}</span></button>`;
+    }).join('');
+    const eqGalleryHtml = `
+      <section class="eq-gallery">
+        <div class="eq-bubble-wrap">
+          <div class="eq-bubble-grid" id="eqGrid"></div>
+        </div>
+      </section>`;
+
     const prev = PROJECTS[(idx - 1 + total) % total];
     const next = PROJECTS[(idx + 1) % total];
 
@@ -927,11 +1026,7 @@
         </div>
       </section>
 
-      <section class="project-gallery">
-        <div class="project-gallery__grid">
-          ${gallery}
-        </div>
-      </section>
+      ${isEquestrian ? eqGalleryHtml : `<section class="project-gallery"><div class="project-gallery__grid">${gallery}</div></section>`}
 
       <section class="project-nav">
         <div class="project-nav__grid">
@@ -985,6 +1080,78 @@
         openLb(parseInt(el.dataset.idx, 10) || 0);
       });
     });
+
+    // ─── Iron Dames Equestrian — bubble gallery ───
+    if (isEquestrian) {
+      lbImgs = EQ_IMAGES.map(i => i.src);
+      const grid = document.getElementById('eqGrid');
+      if (grid) {
+        grid.innerHTML = EQ_IMAGES.map((img, idx) => `
+          <button class="eq-bubble-item" data-idx="${idx}" aria-label="${img.label}">
+            <img src="${img.src}" alt="${img.label}" loading="eager" decoding="async">
+          </button>`).join('');
+
+        // ── Cursor preview ───────────────────────────
+        const preview = document.createElement('div');
+        preview.className = 'eq-preview';
+        preview.innerHTML = '<img src="" alt="" decoding="async">';
+        document.body.appendChild(preview);
+        const previewImg = preview.querySelector('img');
+        let eqVisible = false, eqCurrentSrc = '';
+
+        function eqPosition(e) {
+          const pw = 340, ph = pw * 1.25;
+          const vw = window.innerWidth, vh = window.innerHeight;
+          let x = e.clientX + 28;
+          let y = e.clientY - ph / 2;
+          if (x + pw > vw - 12) x = e.clientX - pw - 28;
+          if (y < 12) y = 12;
+          if (y + ph > vh - 12) y = vh - ph - 12;
+          preview.style.transform = `translate(${x}px,${y}px)`;
+        }
+
+        function eqShow(src, e) {
+          eqPosition(e);
+          if (src !== eqCurrentSrc) {
+            eqCurrentSrc = src;
+            if (eqVisible) {
+              gsap.to(previewImg, { opacity: 0, duration: 0.1, onComplete: () => { previewImg.src = src; gsap.to(previewImg, { opacity: 1, duration: 0.18 }); }});
+            } else {
+              previewImg.src = src;
+            }
+          }
+          if (!eqVisible) {
+            eqVisible = true;
+            gsap.killTweensOf(preview);
+            gsap.fromTo(preview, { opacity: 0, scale: 0.86 }, { opacity: 1, scale: 1, duration: 0.38, ease: 'power3.out' });
+          }
+        }
+
+        function eqHide() {
+          if (!eqVisible) return;
+          eqVisible = false;
+          gsap.killTweensOf(preview);
+          gsap.to(preview, { opacity: 0, scale: 0.9, duration: 0.22, ease: 'power2.in' });
+        }
+
+        grid.addEventListener('mousemove', e => {
+          if (eqVisible) eqPosition(e);
+        });
+        grid.addEventListener('mouseleave', eqHide);
+
+        grid.querySelectorAll('.eq-bubble-item').forEach(btn => {
+          btn.addEventListener('click', () => openLb(+btn.dataset.idx));
+          btn.addEventListener('mouseenter', e => {
+            const src = btn.querySelector('img').src;
+            eqShow(src, e);
+            if (cursorLabel) { cursorLabel.classList.add('is-visible'); document.body.classList.add('cursor-view-active'); }
+          });
+          btn.addEventListener('mouseleave', () => {
+            if (cursorLabel) { cursorLabel.classList.remove('is-visible'); document.body.classList.remove('cursor-view-active'); }
+          });
+        });
+      }
+    }
 
     // ─── Cursor label "VIEW" ──────────────────────
     if (cursorLabel) {

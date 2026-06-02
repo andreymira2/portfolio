@@ -682,9 +682,13 @@ function initCursor() {
     document.getElementById('hero'),
     document.getElementById('sobre'),
     document.getElementById('processo'),
+    document.getElementById('trabalhos'),
     document.querySelector('.clients'),
     document.querySelector('.footer'),
     document.querySelector('.lightbox'),
+    document.querySelector('.project-page'),   // projeto.html — sempre escuro
+    document.querySelector('.eq-gallery'),      // galeria equestre
+    document.querySelector('.cinema-lb'),       // lightbox do projeto
   ].filter(Boolean);
 
   document.addEventListener('mousemove', e => {
