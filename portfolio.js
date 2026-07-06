@@ -181,7 +181,7 @@ const LANG = {
   }
 };
 
-let currentLang = localStorage.getItem('am_lang') || 'pt';
+let currentLang = localStorage.getItem('am_lang') || 'en';
 let blogPage    = 0;
 const BLOG_PER_PAGE = 3;
 
@@ -1177,27 +1177,25 @@ function initAnimations() {
   gsap.from('.hero__tool', { opacity: 0, scale: 0.55, y: 10, duration: 0.55, stagger: { amount: 0.75, from: 'random' }, ease: 'back.out(2.5)', delay: 1.5 });
 
   // Client logos stagger
-  gsap.utils.toArray('.client-logo').forEach((logo, i) => {
-    gsap.fromTo(logo,
-      { opacity: 0, y: 20 },
-      {
-        opacity: 1, y: 0,
-        duration: 0.65,
-        ease: 'power3.out',
-        delay: i * 0.06,
-        scrollTrigger: { trigger: '.clients__grid', start: 'top 85%', once: true }
-      }
-    );
+  ScrollTrigger.create({
+    trigger: '.clients__grid', start: 'top 85%', once: true,
+    onEnter: () => gsap.utils.toArray('.client-logo').forEach((logo, i) =>
+      gsap.fromTo(logo, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.65, ease: 'power3.out', delay: i * 0.06 })
+    )
   });
 
   // Section labels
   gsap.utils.toArray('.section-label').forEach(el => {
-    gsap.from(el, { scrollTrigger: { trigger: el, start: 'top 88%' }, opacity: 0, y: 14, duration: 0.7, ease: 'power3.out' });
+    ScrollTrigger.create({ trigger: el, start: 'top 88%', once: true,
+      onEnter: () => gsap.fromTo(el, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' })
+    });
   });
 
   // Title line reveals
   gsap.utils.toArray('.title-line').forEach(el => {
-    gsap.from(el, { scrollTrigger: { trigger: el.closest('.section-title') || el, start: 'top 85%' }, y: '105%', duration: 1.0, ease: 'power4.out', delay: 0.05 });
+    ScrollTrigger.create({ trigger: el.closest('.section-title') || el, start: 'top 85%', once: true,
+      onEnter: () => gsap.fromTo(el, { y: '105%' }, { y: '0%', duration: 1.0, ease: 'power4.out', delay: 0.05 })
+    });
   });
 
   // Work items — clip-path reveal + meta stagger (entrance sofisticada)
@@ -1207,19 +1205,20 @@ function initAnimations() {
     const baseDelay = (i % 2) * 0.08;
 
     if (media) {
-      gsap.fromTo(media,
-        { clipPath: 'inset(100% 0% 0% 0%)', y: 30 },
-        { clipPath: 'inset(0% 0% 0% 0%)', y: 0, duration: 1.15, ease: 'power4.out',
-          delay: baseDelay,
-          scrollTrigger: { trigger: card, start: 'top 90%', once: true } }
-      );
+      ScrollTrigger.create({ trigger: card, start: 'top 90%', once: true,
+        onEnter: () => gsap.fromTo(media,
+          { clipPath: 'inset(100% 0% 0% 0%)', y: 30 },
+          { clipPath: 'inset(0% 0% 0% 0%)', y: 0, duration: 1.15, ease: 'power4.out', delay: baseDelay }
+        )
+      });
     }
     if (meta.length) {
-      gsap.from(meta,
-        { opacity: 0, y: 18, duration: 0.75, ease: 'power3.out',
-          delay: baseDelay + 0.35, stagger: 0.08,
-          scrollTrigger: { trigger: card, start: 'top 88%', once: true } }
-      );
+      ScrollTrigger.create({ trigger: card, start: 'top 88%', once: true,
+        onEnter: () => gsap.fromTo(meta,
+          { opacity: 0, y: 18 },
+          { opacity: 1, y: 0, duration: 0.75, ease: 'power3.out', delay: baseDelay + 0.35, stagger: 0.08 }
+        )
+      });
     }
   });
 
@@ -1237,19 +1236,23 @@ function initAnimations() {
   // Process photo — clip reveal from bottom (same style as About)
   const processImg = document.querySelector('.process__photo-wrap');
   if (processImg) {
-    gsap.fromTo(processImg,
-      { clipPath: 'inset(0 0 100% 0)' },
-      { clipPath: 'inset(0 0 0% 0)', scrollTrigger: { trigger: processImg, start: 'top 80%' }, duration: 1.4, ease: 'power4.inOut' }
-    );
+    ScrollTrigger.create({ trigger: processImg, start: 'top 80%', once: true,
+      onEnter: () => gsap.fromTo(processImg,
+        { clipPath: 'inset(0 0 100% 0)' },
+        { clipPath: 'inset(0 0 0% 0)', duration: 1.4, ease: 'power4.inOut' }
+      )
+    });
   }
 
   // About image — same clip-path reveal as Process (top-down wipe), fires earlier
   const aboutImg = document.querySelector('.about__image-wrap');
   if (aboutImg) {
-    gsap.fromTo(aboutImg,
-      { clipPath: 'inset(0 0 100% 0)' },
-      { clipPath: 'inset(0 0 0% 0)', scrollTrigger: { trigger: aboutImg, start: 'top 88%', once: true }, duration: 1.1, ease: 'power4.inOut' }
-    );
+    ScrollTrigger.create({ trigger: aboutImg, start: 'top 88%', once: true,
+      onEnter: () => gsap.fromTo(aboutImg,
+        { clipPath: 'inset(0 0 100% 0)' },
+        { clipPath: 'inset(0 0 0% 0)', duration: 1.1, ease: 'power4.inOut' }
+      )
+    });
   }
 
   // About content — onEnter approach (prevents opacity:0 stuck), staggered
@@ -1267,12 +1270,16 @@ function initAnimations() {
 
   // Blog cards
   gsap.utils.toArray('.blog-card').forEach((card, i) => {
-    gsap.from(card, { scrollTrigger: { trigger: card, start: 'top 92%' }, opacity: 0, y: 28, duration: 0.7, ease: 'power3.out', delay: i * 0.1 });
+    ScrollTrigger.create({ trigger: card, start: 'top 92%', once: true,
+      onEnter: () => gsap.fromTo(card, { opacity: 0, y: 28 }, { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out', delay: i * 0.1 })
+    });
   });
 
   // Contact
   gsap.utils.toArray('.contact__desc, .contact__socials, .contact__right').forEach(el => {
-    gsap.from(el, { scrollTrigger: { trigger: el, start: 'top 88%' }, opacity: 0, y: 24, duration: 0.8, ease: 'power3.out' });
+    ScrollTrigger.create({ trigger: el, start: 'top 88%', once: true,
+      onEnter: () => gsap.fromTo(el, { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' })
+    });
   });
 
   // Counters
@@ -1367,13 +1374,27 @@ function runLoader() {
   sessionStorage.setItem('am_loaded', '1');
 
   if (typeof gsap !== 'undefined') {
-    const tl = gsap.timeline({ onComplete() {
-      loader.style.display = 'none';
-      initAnimations();
-    }});
-    tl.to(name, { opacity: 1, y: 0, duration: 0.65, ease: 'power3.out' })
-      .to(bar,  { width: '100%', duration: 1.0, ease: 'power2.inOut' }, '-=0.25')
-      .to(loader, { yPercent: -100, duration: 0.85, ease: 'power3.inOut', delay: 0.2 });
+    const heroImg = document.querySelector('img[src*="andrey-cutout"]');
+
+    let animDone = false, imgDone = false;
+
+    const slideOut = () => {
+      if (!animDone || !imgDone) return;
+      gsap.to(loader, { yPercent: -100, duration: 0.85, ease: 'power3.inOut', delay: 0.15,
+        onComplete() { loader.style.display = 'none'; initAnimations(); }
+      });
+    };
+
+    gsap.timeline({ onComplete() { animDone = true; slideOut(); } })
+      .to(name, { opacity: 1, y: 0, duration: 0.65, ease: 'power3.out' })
+      .to(bar,  { width: '100%', duration: 1.0, ease: 'power2.inOut' }, '-=0.25');
+
+    if (!heroImg || heroImg.complete) {
+      imgDone = true;
+    } else {
+      heroImg.addEventListener('load',  () => { imgDone = true; slideOut(); }, { once: true });
+      heroImg.addEventListener('error', () => { imgDone = true; slideOut(); }, { once: true });
+    }
   } else {
     loader.style.display = 'none';
     initAnimations();
