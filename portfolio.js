@@ -1168,6 +1168,31 @@ function initAnimations() {
   if (typeof gsap === 'undefined') return;
   gsap.registerPlugin(ScrollTrigger);
 
+  // Pre-hide all scroll-animated elements before setting up triggers.
+  // gsap.set() runs synchronously here while the loader still covers the page
+  // (or immediately after display:none on return visits), so there is no visible flash.
+  gsap.set('.client-logo', { opacity: 0, y: 20 });
+  gsap.set('.section-label', { opacity: 0, y: 14 });
+  gsap.set('.title-line', { y: '105%' });
+  gsap.utils.toArray('.work-item').forEach(card => {
+    const media = card.querySelector('.work-item__media');
+    const meta  = card.querySelectorAll('.work-item__title, .work-item__caption');
+    if (media) gsap.set(media, { clipPath: 'inset(100% 0% 0% 0%)', y: 30 });
+    if (meta.length) gsap.set(meta, { opacity: 0, y: 18 });
+  });
+  gsap.set('#processSteps', { opacity: 0, y: 20 });
+  const processImg = document.querySelector('.process__photo-wrap');
+  if (processImg) gsap.set(processImg, { clipPath: 'inset(0 0 100% 0)' });
+  const aboutImg = document.querySelector('.about__image-wrap');
+  if (aboutImg) gsap.set(aboutImg, { clipPath: 'inset(0 0 100% 0)' });
+  gsap.utils.toArray('.about__title, .about__text, .about__stats, .about__skills').forEach(el => {
+    gsap.set(el, { opacity: 0, y: 22 });
+  });
+  gsap.utils.toArray('.blog-card').forEach(card => gsap.set(card, { opacity: 0, y: 28 }));
+  gsap.utils.toArray('.contact__desc, .contact__socials, .contact__right').forEach(el => {
+    gsap.set(el, { opacity: 0, y: 24 });
+  });
+
   // Hero entrance
   gsap.from('.hero__line', { y: '105%', duration: 1.1, stagger: 0.12, ease: 'power4.out', delay: 0.1 });
   gsap.from('.hero__eyebrow', { opacity: 0, y: 18, duration: 0.9, ease: 'power3.out', delay: 0.15 });
@@ -1180,25 +1205,25 @@ function initAnimations() {
   ScrollTrigger.create({
     trigger: '.clients__grid', start: 'top 85%', once: true,
     onEnter: () => gsap.utils.toArray('.client-logo').forEach((logo, i) =>
-      gsap.fromTo(logo, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.65, ease: 'power3.out', delay: i * 0.06 })
+      gsap.to(logo, { opacity: 1, y: 0, duration: 0.65, ease: 'power3.out', delay: i * 0.06 })
     )
   });
 
   // Section labels
   gsap.utils.toArray('.section-label').forEach(el => {
     ScrollTrigger.create({ trigger: el, start: 'top 88%', once: true,
-      onEnter: () => gsap.fromTo(el, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' })
+      onEnter: () => gsap.to(el, { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' })
     });
   });
 
   // Title line reveals
   gsap.utils.toArray('.title-line').forEach(el => {
     ScrollTrigger.create({ trigger: el.closest('.section-title') || el, start: 'top 85%', once: true,
-      onEnter: () => gsap.fromTo(el, { y: '105%' }, { y: '0%', duration: 1.0, ease: 'power4.out', delay: 0.05 })
+      onEnter: () => gsap.to(el, { y: '0%', duration: 1.0, ease: 'power4.out', delay: 0.05 })
     });
   });
 
-  // Work items — clip-path reveal + meta stagger (entrance sofisticada)
+  // Work items — clip-path reveal + meta stagger
   gsap.utils.toArray('.work-item').forEach((card, i) => {
     const media = card.querySelector('.work-item__media');
     const meta  = card.querySelectorAll('.work-item__title, .work-item__caption');
@@ -1206,16 +1231,14 @@ function initAnimations() {
 
     if (media) {
       ScrollTrigger.create({ trigger: card, start: 'top 90%', once: true,
-        onEnter: () => gsap.fromTo(media,
-          { clipPath: 'inset(100% 0% 0% 0%)', y: 30 },
+        onEnter: () => gsap.to(media,
           { clipPath: 'inset(0% 0% 0% 0%)', y: 0, duration: 1.15, ease: 'power4.out', delay: baseDelay }
         )
       });
     }
     if (meta.length) {
       ScrollTrigger.create({ trigger: card, start: 'top 88%', once: true,
-        onEnter: () => gsap.fromTo(meta,
-          { opacity: 0, y: 18 },
+        onEnter: () => gsap.to(meta,
           { opacity: 1, y: 0, duration: 0.75, ease: 'power3.out', delay: baseDelay + 0.35, stagger: 0.08 }
         )
       });
@@ -1224,61 +1247,43 @@ function initAnimations() {
 
   // Process body text reveal
   ScrollTrigger.create({
-    trigger: '#processSteps',
-    start: 'top 88%',
-    once: true,
-    onEnter: () => gsap.fromTo('#processSteps',
-      { opacity: 0, y: 20 },
-      { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out' }
-    )
+    trigger: '#processSteps', start: 'top 88%', once: true,
+    onEnter: () => gsap.to('#processSteps', { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out' })
   });
 
-  // Process photo — clip reveal from bottom (same style as About)
-  const processImg = document.querySelector('.process__photo-wrap');
+  // Process photo — clip reveal from bottom
   if (processImg) {
     ScrollTrigger.create({ trigger: processImg, start: 'top 80%', once: true,
-      onEnter: () => gsap.fromTo(processImg,
-        { clipPath: 'inset(0 0 100% 0)' },
-        { clipPath: 'inset(0 0 0% 0)', duration: 1.4, ease: 'power4.inOut' }
-      )
+      onEnter: () => gsap.to(processImg, { clipPath: 'inset(0 0 0% 0)', duration: 1.4, ease: 'power4.inOut' })
     });
   }
 
-  // About image — same clip-path reveal as Process (top-down wipe), fires earlier
-  const aboutImg = document.querySelector('.about__image-wrap');
+  // About image — clip-path reveal
   if (aboutImg) {
     ScrollTrigger.create({ trigger: aboutImg, start: 'top 88%', once: true,
-      onEnter: () => gsap.fromTo(aboutImg,
-        { clipPath: 'inset(0 0 100% 0)' },
-        { clipPath: 'inset(0 0 0% 0)', duration: 1.1, ease: 'power4.inOut' }
-      )
+      onEnter: () => gsap.to(aboutImg, { clipPath: 'inset(0 0 0% 0)', duration: 1.1, ease: 'power4.inOut' })
     });
   }
 
-  // About content — onEnter approach (prevents opacity:0 stuck), staggered
+  // About content — staggered reveal
   gsap.utils.toArray('.about__title, .about__text, .about__stats, .about__skills').forEach((el, i) => {
     ScrollTrigger.create({
-      trigger: el,
-      start: 'top 92%',
-      once: true,
-      onEnter: () => gsap.fromTo(el,
-        { opacity: 0, y: 22 },
-        { opacity: 1, y: 0, duration: 0.75, ease: 'power3.out', delay: i * 0.05 }
-      )
+      trigger: el, start: 'top 92%', once: true,
+      onEnter: () => gsap.to(el, { opacity: 1, y: 0, duration: 0.75, ease: 'power3.out', delay: i * 0.05 })
     });
   });
 
   // Blog cards
   gsap.utils.toArray('.blog-card').forEach((card, i) => {
     ScrollTrigger.create({ trigger: card, start: 'top 92%', once: true,
-      onEnter: () => gsap.fromTo(card, { opacity: 0, y: 28 }, { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out', delay: i * 0.1 })
+      onEnter: () => gsap.to(card, { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out', delay: i * 0.1 })
     });
   });
 
   // Contact
   gsap.utils.toArray('.contact__desc, .contact__socials, .contact__right').forEach(el => {
     ScrollTrigger.create({ trigger: el, start: 'top 88%', once: true,
-      onEnter: () => gsap.fromTo(el, { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' })
+      onEnter: () => gsap.to(el, { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' })
     });
   });
 
