@@ -262,16 +262,42 @@ const PROJECTS = [
     num: '03', wide: false, gallery: false, aspect: '4/5', cardAspect: '9 / 16', cardFormat: '9:16', slug: 'emirates', slideDir: 'h',
     cat:   { pt: 'Brand Partnership', en: 'Brand Partnership' },
     title: 'Emirates',
-    caption: { pt: 'Emirates × WePlay — Dubai, FA Cup, NBA, SailGP.', en: 'Emirates × WePlay — Dubai, FA Cup, NBA, SailGP.' },
-    cover: 'assets/projects/Emirates/Emirates 3.jpg',
+    caption: { pt: 'Emirates × WePlay — Champions League, Roland Garros, Wimbledon, FA Cup e mais.', en: 'Emirates × WePlay — Champions League, Roland Garros, Wimbledon, FA Cup and more.' },
+    cover: 'assets/projects/Emirates/2026/CL_Arsenal Champion_9x16.png',
     images: [
-      'assets/projects/Emirates/Emirates 3.jpg',
+      // Champions League
+      'assets/projects/Emirates/2026/CL_Arsenal Champion_9x16.png',
+      'assets/projects/Emirates/2026/CL_Arsenal Good Luck_9x16.png',
+      'assets/projects/Emirates/2026/CL Semi-Finals - Arsenal_9x16.png',
+      'assets/projects/Emirates/2026/CL Semi-Finals - Bayern_V2_9x16.png',
+      'assets/projects/Emirates/2026/Congratulations v2_9x16.png',
+      'assets/projects/Emirates/2026/AC Milan_Opening Frame_v3_9X16.png',
+      'assets/projects/Emirates/2026/OL_Opening Frame V3_9x16.png',
+      'assets/projects/Emirates/2026/Bayern_Featurette_V2_9x16.png',
+      // FA Cup
+      'assets/projects/Emirates/2026/WePlay_Emirates_FA Cup_V2.png',
       'assets/projects/Emirates/WePlay_Emirates_FA Cup 2-2.jpg',
-      'assets/projects/Emirates/NBA Test 10.jpg',
+      // Tennis
+      'assets/projects/Emirates/2026/Wimbledon_Opening Frame v4_9x16.png',
+      'assets/projects/Emirates/2026/Roland Garros_Opening Frame v7_9x16.png',
+      'assets/projects/Emirates/2026/WePlay_Emirates_Sabalenka GoodLuck_Blue.png',
+      // Cricket
+      'assets/projects/Emirates/2026/ICC T20_Opening Frame v2_9x16.png',
+      // Basketball
+      'assets/projects/Emirates/2026/NBA All Star Game 1.png',
+      // Cycling
+      'assets/projects/Emirates/2026/UAE Tour_Good Luck_9x16.png',
+      // Horse Racing
+      'assets/projects/Emirates/2026/DWC_Opening Frame_9x16.png',
+      // Sailing
       'assets/projects/Emirates/SailGP_Winner.jpg',
+      // Australian Football
+      'assets/projects/Emirates/2026/Collingwood FC_Opening Frame_9x16.png',
+      // 2025 generic
+      'assets/projects/Emirates/Emirates 3.jpg',
     ],
-    formats: ['9:16','9:16','9:16','9:16'],
-    desc: { pt: 'Materiais visuais para a parceria Emirates × WePlay — cobrindo Dubai World Cup (corrida de cavalos), FA Cup Final, NBA All-Star e SailGP. Design que une elegância da marca com impacto esportivo.', en: 'Visual materials for the Emirates × WePlay partnership — covering Dubai World Cup (horse racing), FA Cup Final, NBA All-Star and SailGP. Design bridging brand elegance with sports impact.' },
+    formats: ['9:16','9:16','9:16','9:16','9:16','9:16','9:16','9:16','9:16','9:16','9:16','9:16','9:16','9:16','9:16','9:16','9:16','9:16','9:16','9:16','9:16'],
+    desc: { pt: 'Materiais visuais para a parceria Emirates × WePlay em 2026 — cobrindo Champions League (Arsenal), Roland Garros, Wimbledon, FA Cup, NBA All-Star, ICC T20 e Dubai World Cup. Design que une elegância da marca com impacto esportivo.', en: 'Visual materials for the Emirates × WePlay partnership in 2026 — covering Champions League (Arsenal), Roland Garros, Wimbledon, FA Cup, NBA All-Star, ICC T20 and Dubai World Cup. Design bridging brand elegance with sports impact.' },
     url: 'https://www.behance.net/andreymirandaa'
   },
   {
@@ -1331,6 +1357,14 @@ function runLoader() {
   const bar  = document.querySelector('.loader__bar');
   const loader = document.getElementById('loader');
   if (!name || !bar || !loader) { initAnimations(); return; }
+
+  // Skip loader on return visits within the same session
+  if (sessionStorage.getItem('am_loaded')) {
+    loader.style.display = 'none';
+    initAnimations();
+    return;
+  }
+  sessionStorage.setItem('am_loaded', '1');
 
   if (typeof gsap !== 'undefined') {
     const tl = gsap.timeline({ onComplete() {

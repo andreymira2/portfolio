@@ -184,16 +184,29 @@
       .project-gallery__item[data-fmt="9:16"] { grid-column: span 1; }
     }
     @media (max-width: 600px) {
-      /* Mobile — coluna única, MAS com aspect-ratio CAP pra evitar
-         imagens absurdamente altas (9:16 num viewport 390px = 1080px de altura). */
-      .project-gallery__grid { grid-template-columns: 1fr; gap: 0.625rem; padding: 0 1.25rem; }
-      .project-gallery__item[data-fmt] { grid-column: span 1; }
-      /* Cap em todos os formatos pra dar ritmo de scroll */
-      .project-gallery__item[data-fmt="9:16"] { aspect-ratio: 4 / 5; }
-      .project-gallery__item[data-fmt="16:9"] { aspect-ratio: 16 / 10; }
-      .project-gallery__item[data-fmt="1:1"]  { aspect-ratio: 1 / 1; }
-      .project-gallery__item[data-fmt="4:5"]  { aspect-ratio: 4 / 5; }
-      /* As imagens dentro continuam cover, mas mais centradas */
+      /* Mobile — carrossel horizontal com scroll-snap */
+      .project-gallery { padding-bottom: clamp(3rem, 6vw, 5rem); }
+      .project-gallery__grid {
+        display: flex;
+        flex-direction: row;
+        gap: 0.5rem;
+        padding: 0 1.25rem;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+      }
+      .project-gallery__grid::-webkit-scrollbar { display: none; }
+      .project-gallery__item[data-fmt] {
+        grid-column: unset;
+        flex: 0 0 auto;
+        scroll-snap-align: start;
+      }
+      /* Largura e altura de cada card no carrossel */
+      .project-gallery__item[data-fmt="9:16"] { width: 68vw; aspect-ratio: 9 / 16; }
+      .project-gallery__item[data-fmt="4:5"]  { width: 72vw; aspect-ratio: 4 / 5; }
+      .project-gallery__item[data-fmt="1:1"]  { width: 80vw; aspect-ratio: 1 / 1; }
+      .project-gallery__item[data-fmt="16:9"] { width: 88vw; aspect-ratio: 16 / 9; }
       .project-gallery__item img { object-position: center; }
     }
 
