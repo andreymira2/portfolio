@@ -34,6 +34,10 @@ button { cursor: none; border: none; background: none; font-family: inherit; }
   --mobile-safe-bot: 0px;
 }
 
+/* ─── SKIP LINK ──────────────────────────────── */
+.skip-link { position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden; }
+.skip-link:focus { position:fixed; left:1rem; top:1rem; width:auto; height:auto; overflow:visible; padding:0.5rem 1.25rem; background:var(--dark); color:var(--white); font-family:var(--font-body); font-size:0.875rem; font-weight:500; border-radius:var(--radius-sm); z-index:10000; outline:2px solid var(--white); outline-offset:2px; }
+
 /* ─── TYPOGRAPHY ─────────────────────────────── */
 h1,h2,h3,h4 { font-family: var(--font-display); font-weight:700; line-height:1.05; letter-spacing:-0.025em; text-wrap: pretty; }
 h1 { font-size: clamp(3rem,8vw,8rem); }

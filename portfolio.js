@@ -56,8 +56,8 @@ const LANG = {
     'clients.label':   'Clientes',
 
     'work.label':      'Trabalhos Selecionados',
-    'work.t1':         'Trabalho',
-    'work.t2':         'selecionado.',
+    'work.t1':         'O que',
+    'work.t2':         'eu faço.',
     'work.lightbox':   'Ver no Behance →',
 
     'process.label':   'Processo',
@@ -66,8 +66,8 @@ const LANG = {
     'process.body':    '<p>Bons projetos não aparecem do nada. Alguém teve que levar a sério, desde a primeira conversa até o arquivo final. Cada detalhe que parece pequeno acaba aparecendo no resultado, pra bem ou pra mal. Ignorar isso é uma escolha, e geralmente uma ruim.</p><p>Quando um projeto chega, ele vira prioridade. Não porque é obrigação, mas porque é a única forma de fazer direito. Se algo não saiu como deveria, o caminho é trabalhar até ficar bom, não entregar pela metade e torcer pra ninguém notar. Lealdade ao projeto não é um diferencial, é só o padrão mínimo.</p><p>No fim, design é resolução de problema. Pode ser bonito, pode ter impacto, mas se não resolve o que precisa resolver, não serve. Essa é a parte que importa.</p>',
 
     'about.label':     'Sobre',
-    'about.t1':        'Quase 10 anos',
-    'about.t2':        'de design.',
+    'about.t1':        'Onde o esporte',
+    'about.t2':        'encontra o design.',
     'about.p1':        'Design não aparece do nada, e designer também não. Comecei cedo, no Brasil, sem muito plano, só vontade. Quase 10 anos depois, estou trabalhando remotamente para a WePlay em Londres, produzindo visual para esportes e esports em escala global. Não foi sorte, foi escolha atrás de escolha.',
     'about.p2html':    'Paralelamente, atendo clientes freelance pela Europa e Américas. O esporte é onde me sinto em casa porque lá ninguém aceita mediano. A distância nunca foi obstáculo. O esforço compensa.',
     'about.s1':        'Projetos',
@@ -101,6 +101,11 @@ const LANG = {
     'lightbox.close':  'Fechar',
     'lightbox.prev':   '←',
     'lightbox.next':   '→',
+    'lightbox.prevLabel':  'Projeto anterior',
+    'lightbox.nextLabel':  'Próximo projeto',
+    'lightbox.closeLabel': 'Fechar',
+    'meta.title': 'Andrey Miranda — Designer Gráfico',
+    'meta.desc':  'Designer gráfico com quase 10 anos criando para motorsport, futebol e esports ao redor do mundo.',
     'ph.photo':        'foto do designer',
     'ph.project':      'imagem do projeto',
     'ph.blog':         'imagem do artigo',
@@ -118,7 +123,7 @@ const LANG = {
     'hero.line1':      'What are we',
     'hero.line2':      'creating',
     'hero.line3':      'today?',
-    'hero.desc':       'Graphic designer with almost 10 years creating for brands that demand the best.',
+    'hero.desc':       'Sports graphic designer, 10 years in. Motorsport, football, esports — where the stakes are real.',
     'hero.cta':        'See work →',
     'hero.available':  'Available for projects',
 
@@ -134,14 +139,14 @@ const LANG = {
     'process.label':   'Process',
     'process.t1':      'How I',
     'process.t2':      'work.',
-    'process.body':    '<p>Good projects don\'t appear out of nowhere. Someone had to take it seriously, from the first conversation to the final file. Every detail that seems small ends up showing in the result, for better or worse. Ignoring that is a choice, and usually a bad one.</p><p>When a project comes in, it becomes a priority. Not because it\'s an obligation, but because it\'s the only way to do it right. If something didn\'t turn out as it should, the path is to work until it\'s good, not deliver halfway and hope no one notices. Loyalty to the project isn\'t a differentiator, it\'s just the minimum standard.</p><p>In the end, design is problem-solving. It can be beautiful, it can have impact, but if it doesn\'t solve what needs to be solved, it doesn\'t work. That\'s the part that matters.</p>',
+    'process.body':    '<p>Good projects don\'t appear out of nowhere. Someone had to take it seriously, from the first conversation to the final file. Every detail that seems small ends up showing in the result, for better or worse. Ignoring that is a choice, and usually a bad one.</p><p>When a project comes in, it becomes a priority. Not because it\'s an obligation, but because it\'s the only way to do it right. If something didn\'t turn out as it should, the path is to work until it\'s good, not deliver halfway and hope no one notices. Caring about the project isn\'t a plus. It\'s the floor.</p><p>In the end, design is problem-solving. It can be beautiful, it can have impact, but if it doesn\'t solve what needs to be solved, it doesn\'t work. That\'s the part that matters.</p>',
 
     // About — real story, human voice
     'about.label':     'About',
-    'about.t1':        'Almost 10 years',
-    'about.t2':        'of design.',
+    'about.t1':        'Where sport',
+    'about.t2':        'meets design.',
     'about.p1':        'Design doesn\'t appear out of nowhere, and neither do designers. I started early, in Brazil, without much of a plan, just drive. Almost 10 years later, I work remotely for WePlay in London, producing visuals for sports and esports at a global scale. It wasn\'t luck, it was one choice after another.',
-    'about.p2html':    'On the side, I work with freelance clients across Europe and the Americas. Sport is where I feel at home because no one there accepts mediocre. Distance has never been an obstacle. The effort pays off.',
+    'about.p2html':    'On the side, I take on freelance clients across Europe and the Americas. Sport is where I feel at home — no one there settles for good enough. Remote from Brazil, working for clubs and circuits across three continents. The time zones change. The standards don\'t.',
     'about.s1':        'Projects',
     'about.s2':        'Years',
     'about.s3':        'Continents',
@@ -175,6 +180,11 @@ const LANG = {
     'lightbox.close':  'Close',
     'lightbox.prev':   '←',
     'lightbox.next':   '→',
+    'lightbox.prevLabel':  'Previous project',
+    'lightbox.nextLabel':  'Next project',
+    'lightbox.closeLabel': 'Close',
+    'meta.title': 'Andrey Miranda — Sports Designer',
+    'meta.desc':  'Sports graphic designer with 10 years creating for motorsport, football and esports brands worldwide.',
     'ph.photo':        'designer photo',
     'ph.project':      'project image',
     'ph.blog':         'article image',
@@ -191,6 +201,16 @@ function applyLang(lang) {
   currentLang = lang;
   localStorage.setItem('am_lang', lang);
   document.documentElement.lang = lang === 'pt' ? 'pt-BR' : 'en';
+  document.documentElement.setAttribute('data-lang', lang);
+  document.title = t('meta.title');
+  const metaDesc = document.querySelector('meta[name="description"]');
+  if (metaDesc) metaDesc.setAttribute('content', t('meta.desc'));
+  const lbPrev  = document.getElementById('lbPrev');
+  const lbNext  = document.getElementById('lbNext');
+  const lbClose = document.getElementById('lbClose');
+  if (lbPrev)  lbPrev.setAttribute('aria-label',  t('lightbox.prevLabel'));
+  if (lbNext)  lbNext.setAttribute('aria-label',  t('lightbox.nextLabel'));
+  if (lbClose) lbClose.setAttribute('aria-label', t('lightbox.closeLabel'));
 
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const key = el.dataset.i18n;
