@@ -702,22 +702,35 @@
 
     /* ─── EMIRATES GALLERY (emirates) ─── */
     .em-gallery { background: #080808; }
-    .em-section { padding: 4rem 0 2rem; border-top: 1px solid rgba(255,255,255,0.06); }
-    .em-section:first-child { border-top: none; padding-top: 3rem; }
-    .em-section__head { padding-bottom: 2rem; }
-    .em-section__meta { display: flex; align-items: center; gap: 1rem; margin-bottom: 0.75rem; }
+    .em-section { border-top: 1px solid rgba(255,255,255,0.06); padding: 5rem 0; }
+    .em-section:first-child { border-top: none; padding-top: 3.5rem; }
+    .em-section__inner { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2.5rem, 6vw, 5rem); align-items: center; max-width: var(--container, 1320px); margin: 0 auto; padding: 0 clamp(1.5rem, 5vw, 5rem); }
+    .em-section--alt .em-section__text { order: 2; }
+    .em-section--alt .em-section__phones { order: 1; }
+    .em-section__meta { display: flex; align-items: center; gap: 1rem; margin-bottom: 0.875rem; }
     .em-section__tag { font-size: 0.6875rem; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255,255,255,0.4); font-family: var(--font-body); }
     .em-section__count { font-size: 0.6875rem; letter-spacing: 0.12em; color: rgba(255,255,255,0.22); font-family: var(--font-body); }
-    .em-section__title { font-family: var(--font-display); font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: 700; color: var(--white); margin: 0 0 0.875rem; line-height: 1.1; }
-    .em-section__desc { font-size: 0.9375rem; color: rgba(255,255,255,0.5); max-width: 56ch; line-height: 1.65; margin: 0; }
-    .em-grid-wrap { width: 100%; padding: 0 clamp(1.5rem, 5vw, 5rem); max-width: var(--container, 1320px); margin: 0 auto; }
-    .em-grid { display: flex; flex-wrap: wrap; gap: 4px; }
-    .em-item { width: 192px; aspect-ratio: 9/16; flex-shrink: 0; overflow: hidden; border-radius: 4px; background: #111; cursor: pointer; border: none; padding: 0; outline: 1.5px solid transparent; outline-offset: 2px; transition: outline-color 0.15s ease; }
-    .em-item:hover { outline-color: rgba(255,255,255,0.5); }
-    .em-item img { width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none; }
-    .em-preview { width: 200px !important; aspect-ratio: 9/16 !important; }
-    @media (max-width: 600px) {
-      .em-item { width: calc(50% - 2px); aspect-ratio: 9/16; }
+    .em-section__title { font-family: var(--font-display); font-size: clamp(1.75rem, 3.5vw, 2.5rem); font-weight: 700; color: var(--white); margin: 0 0 1rem; line-height: 1.1; }
+    .em-section__desc { font-size: 0.9375rem; color: rgba(255,255,255,0.5); line-height: 1.7; margin: 0 0 1.5rem; }
+    .em-section__all { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.8125rem; color: rgba(255,255,255,0.3); background: none; border: none; padding: 0; cursor: pointer; font-family: var(--font-body); letter-spacing: 0.01em; transition: color 0.2s ease; }
+    .em-section__all:hover { color: rgba(255,255,255,0.65); }
+    .em-section__phones { display: flex; justify-content: center; }
+    .em-phones { display: flex; gap: 10px; align-items: flex-end; }
+    .em-phone { width: 110px; aspect-ratio: 9/16; background: #1c1c1e; border-radius: 16px; border: 1.5px solid rgba(255,255,255,0.1); overflow: hidden; position: relative; cursor: pointer; padding: 0; flex-shrink: 0; transition: border-color 0.2s ease, filter 0.2s ease; }
+    .em-phone:hover { border-color: rgba(255,255,255,0.35); filter: brightness(1.08); }
+    .em-phone--up { transform: translateY(-16px); }
+    .em-phone--down { transform: translateY(10px); }
+    .em-phone__island { position: absolute; top: 7px; left: 50%; transform: translateX(-50%); width: 28px; height: 7px; background: #000; border-radius: 999px; z-index: 3; pointer-events: none; }
+    .em-phone__stories { position: absolute; top: 0; left: 0; right: 0; z-index: 2; padding: 5px 7px 0; background: linear-gradient(to bottom, rgba(0,0,0,0.55) 0%, transparent 100%); display: flex; gap: 2px; pointer-events: none; }
+    .em-phone__seg { flex: 1; height: 2px; background: rgba(255,255,255,0.28); border-radius: 1px; }
+    .em-phone__seg--active { background: rgba(255,255,255,0.85); }
+    .em-phone img { width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none; }
+    @media (max-width: 768px) {
+      .em-section__inner { grid-template-columns: 1fr; gap: 2.5rem; }
+      .em-section--alt .em-section__text { order: 1; }
+      .em-section--alt .em-section__phones { order: 2; }
+      .em-phone { width: 80px; border-radius: 12px; }
+      .em-phone__island { width: 20px; height: 6px; top: 5px; }
       .em-section__title { font-size: 1.375rem; }
       .em-section__desc { font-size: 0.875rem; }
     }
@@ -903,6 +916,7 @@
       sport: { pt: 'UEFA Champions League', en: 'UEFA Champions League' },
       tag:   { pt: 'Futebol', en: 'Football' },
       count: '08',
+      featured: [0, 1, 5, 7],
       desc: {
         pt: 'A jornada do Arsenal na Champions League 2025/26 — da fase de grupos ao título. Gráficos de boa sorte, buildup das semifinais e a celebração dos campeões. Arsenal vermelho com a precisão Emirates.',
         en: "Arsenal's run through the 2025/26 Champions League — group stage to the title. Good luck posts, semi-final builds, champion celebration. Arsenal red, Emirates precision."
@@ -922,6 +936,7 @@
       sport: { pt: 'FA Cup', en: 'FA Cup' },
       tag:   { pt: 'Futebol', en: 'Football' },
       count: '02',
+      featured: [0, 1],
       desc: {
         pt: 'A FA Cup — o torneio mais antigo do futebol. A Emirates é parceira da competição e do Wembley, e cada rodada pede seu próprio design.',
         en: 'The oldest cup competition in football. Emirates partners the competition and Wembley itself — every round, its own graphic.'
@@ -935,6 +950,7 @@
       sport: { pt: 'Tênis', en: 'Tennis' },
       tag:   { pt: 'Tênis', en: 'Tennis' },
       count: '03',
+      featured: [0, 1, 2],
       desc: {
         pt: 'Roland Garros e Wimbledon — os dois Grand Slams mais icônicos do mundo. Mais Aryna Sabalenka, uma das maiores jogadoras do circuito. Tênis de alto nível, design à altura.',
         en: 'Roland Garros and Wimbledon — the two most iconic Grand Slams. Plus Aryna Sabalenka, one of the best players on tour. Top-level tennis, design to match.'
@@ -949,6 +965,7 @@
       sport: { pt: 'Mais Esportes', en: 'More Sports' },
       tag:   { pt: 'Multi-esporte', en: 'Multi-sport' },
       count: '07',
+      featured: [0, 1, 4, 3],
       desc: {
         pt: 'A parceria Emirates vai muito além do futebol. ICC T20, NBA All-Star, UAE Tour, Dubai World Cup, SailGP, Collingwood FC — presença global que o design precisa refletir.',
         en: 'The Emirates partnership goes far beyond football. ICC T20, NBA All-Star, UAE Tour, Dubai World Cup, SailGP, Collingwood FC — a global presence the design has to match.'
@@ -1133,22 +1150,43 @@
       </section>`;
 
     const emAllImgs = isEmirates ? EMIRATES_SECTIONS.flatMap(s => s.images) : [];
+    const phoneOffsets = ['', 'em-phone--up', 'em-phone--down', 'em-phone--up'];
     const emGalleryHtml = isEmirates ? `
       <section class="em-gallery" id="emGallery">
-        ${EMIRATES_SECTIONS.map((section, si) => {
-          const sectionStart = EMIRATES_SECTIONS.slice(0, si).reduce((acc, s) => acc + s.images.length, 0);
-          return `<div class="em-section">
-            <div class="em-section__head container">
-              <div class="em-section__meta">
-                <span class="em-section__tag">${section.tag[lang]}</span>
-                <span class="em-section__count">${section.count} assets</span>
+        ${EMIRATES_SECTIONS.map((section, sIdx) => {
+          const sectionStart = EMIRATES_SECTIONS.slice(0, sIdx).reduce((acc, s) => acc + s.images.length, 0);
+          const altClass = sIdx % 2 === 1 ? 'em-section--alt' : '';
+          const featured = section.featured || section.images.map((_, i) => i);
+          const viewAllText = lang === 'pt' ? `Ver todos os ${section.count} frames →` : `See all ${section.count} frames →`;
+          const viewAllBtn = section.images.length > featured.length
+            ? `<button class="em-section__all" data-section-start="${sectionStart}">${viewAllText}</button>`
+            : '';
+          const phonesHtml = featured.map((featIdx, pi) => {
+            const globalIdx = sectionStart + featIdx;
+            const img = section.images[featIdx];
+            const offsetClass = phoneOffsets[pi] || '';
+            const segsHtml = section.images.map((_, imgIdx) =>
+              `<div class="em-phone__seg${imgIdx === featIdx ? ' em-phone__seg--active' : ''}"></div>`
+            ).join('');
+            return `<button class="em-phone ${offsetClass}" data-idx="${globalIdx}" aria-label="${img.label}">
+              <div class="em-phone__island"></div>
+              <div class="em-phone__stories">${segsHtml}</div>
+              <img src="${img.src}" alt="${img.label}" loading="lazy" decoding="async">
+            </button>`;
+          }).join('');
+          return `<div class="em-section ${altClass}">
+            <div class="em-section__inner">
+              <div class="em-section__text">
+                <div class="em-section__meta">
+                  <span class="em-section__tag">${section.tag[lang]}</span>
+                  <span class="em-section__count">${section.count} assets</span>
+                </div>
+                <h2 class="em-section__title">${section.sport[lang]}</h2>
+                <p class="em-section__desc">${section.desc[lang]}</p>
+                ${viewAllBtn}
               </div>
-              <h2 class="em-section__title">${section.sport[lang]}</h2>
-              <p class="em-section__desc">${section.desc[lang]}</p>
-            </div>
-            <div class="em-grid-wrap">
-              <div class="em-grid">
-                ${section.images.map((img, i) => `<button class="em-item" data-idx="${sectionStart + i}" aria-label="${img.label}"><img src="${img.src}" alt="${img.label}" loading="lazy" decoding="async"></button>`).join('')}
+              <div class="em-section__phones">
+                <div class="em-phones">${phonesHtml}</div>
               </div>
             </div>
           </div>`;
@@ -1313,63 +1351,22 @@
       }
     }
 
-    // ─── Emirates — galeria por seções ──────────
+    // ─── Emirates — galeria editorial ──────────
     if (isEmirates) {
       lbImgs = emAllImgs.map(img => img.src);
       const emGalleryEl = document.getElementById('emGallery');
       if (emGalleryEl) {
-        const preview = document.createElement('div');
-        preview.className = 'eq-preview em-preview';
-        preview.innerHTML = '<img src="" alt="" decoding="async">';
-        document.body.appendChild(preview);
-        const previewImg = preview.querySelector('img');
-        let emVisible = false, emCurrentSrc = '';
-
-        function emPosition(e) {
-          const pw = 200, ph = pw * (16 / 9);
-          const vw = window.innerWidth, vh = window.innerHeight;
-          let x = e.clientX + 28;
-          let y = e.clientY - ph / 2;
-          if (x + pw > vw - 12) x = e.clientX - pw - 28;
-          if (y < 12) y = 12;
-          if (y + ph > vh - 12) y = vh - ph - 12;
-          preview.style.transform = `translate(${x}px,${y}px)`;
-        }
-        function emShow(src, e) {
-          emPosition(e);
-          if (src !== emCurrentSrc) {
-            emCurrentSrc = src;
-            if (emVisible) {
-              gsap.to(previewImg, { opacity: 0, duration: 0.1, onComplete: () => { previewImg.src = src; gsap.to(previewImg, { opacity: 1, duration: 0.18 }); }});
-            } else {
-              previewImg.src = src;
-            }
-          }
-          if (!emVisible) {
-            emVisible = true;
-            gsap.killTweensOf(preview);
-            gsap.fromTo(preview, { opacity: 0, scale: 0.86 }, { opacity: 1, scale: 1, duration: 0.38, ease: 'power3.out' });
-          }
-        }
-        function emHide() {
-          if (!emVisible) return;
-          emVisible = false;
-          gsap.killTweensOf(preview);
-          gsap.to(preview, { opacity: 0, scale: 0.9, duration: 0.22, ease: 'power2.in' });
-        }
-
-        emGalleryEl.addEventListener('mousemove', e => { if (emVisible) emPosition(e); });
-        emGalleryEl.addEventListener('mouseleave', emHide);
-
-        emGalleryEl.querySelectorAll('.em-item').forEach(btn => {
+        emGalleryEl.querySelectorAll('.em-phone').forEach(btn => {
           btn.addEventListener('click', () => openLb(+btn.dataset.idx));
-          btn.addEventListener('mouseenter', e => {
-            emShow(btn.querySelector('img').src, e);
+          btn.addEventListener('mouseenter', () => {
             if (cursorLabel) { cursorLabel.classList.add('is-visible'); document.body.classList.add('cursor-view-active'); }
           });
           btn.addEventListener('mouseleave', () => {
             if (cursorLabel) { cursorLabel.classList.remove('is-visible'); document.body.classList.remove('cursor-view-active'); }
           });
+        });
+        emGalleryEl.querySelectorAll('.em-section__all').forEach(btn => {
+          btn.addEventListener('click', () => openLb(+btn.dataset.sectionStart));
         });
       }
     }
