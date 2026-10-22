@@ -715,22 +715,46 @@
     .em-section__all { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.8125rem; color: rgba(255,255,255,0.3); background: none; border: none; padding: 0; cursor: pointer; font-family: var(--font-body); letter-spacing: 0.01em; transition: color 0.2s ease; }
     .em-section__all:hover { color: rgba(255,255,255,0.65); }
     .em-section__phones { display: flex; justify-content: center; }
-    .em-phones { display: flex; gap: 10px; align-items: flex-end; }
-    .em-phone { width: 110px; aspect-ratio: 9/16; background: #1c1c1e; border-radius: 16px; border: 1.5px solid rgba(255,255,255,0.1); overflow: hidden; position: relative; cursor: pointer; padding: 0; flex-shrink: 0; transition: border-color 0.2s ease, filter 0.2s ease; }
-    .em-phone:hover { border-color: rgba(255,255,255,0.35); filter: brightness(1.08); }
-    .em-phone--up { transform: translateY(-16px); }
-    .em-phone--down { transform: translateY(10px); }
-    .em-phone__island { position: absolute; top: 7px; left: 50%; transform: translateX(-50%); width: 28px; height: 7px; background: #000; border-radius: 999px; z-index: 3; pointer-events: none; }
-    .em-phone__stories { position: absolute; top: 0; left: 0; right: 0; z-index: 2; padding: 5px 7px 0; background: linear-gradient(to bottom, rgba(0,0,0,0.55) 0%, transparent 100%); display: flex; gap: 2px; pointer-events: none; }
-    .em-phone__seg { flex: 1; height: 2px; background: rgba(255,255,255,0.28); border-radius: 1px; }
+    .em-phones { display: flex; gap: 12px; align-items: flex-end; }
+    /* iPhone device mockup */
+    .em-phone { width: 130px; height: 278px; position: relative; border-radius: 20px; background: #2e2e30; border: 1.5px solid #555; cursor: pointer; padding: 0; flex-shrink: 0; transition: filter 0.2s ease; }
+    .em-phone:hover { filter: brightness(1.1); }
+    .em-phone--up { transform: translateY(-18px); }
+    .em-phone--down { transform: translateY(12px); }
+    .em-phone::after { content: ''; position: absolute; inset: 2px; border-radius: 18px; border: 1px solid rgba(0,0,0,0.6); pointer-events: none; z-index: 10; }
+    .em-phone__b1 { position: absolute; left: -2.5px; top: 46px; width: 2.5px; height: 13px; background: #4a4a4c; border-radius: 2px 0 0 2px; }
+    .em-phone__b2 { position: absolute; left: -2.5px; top: 65px; width: 2.5px; height: 22px; background: #4a4a4c; border-radius: 2px 0 0 2px; }
+    .em-phone__b3 { position: absolute; left: -2.5px; top: 94px; width: 2.5px; height: 22px; background: #4a4a4c; border-radius: 2px 0 0 2px; }
+    .em-phone__pw { position: absolute; right: -2.5px; top: 72px; width: 2.5px; height: 36px; background: #4a4a4c; border-radius: 0 2px 2px 0; }
+    .em-phone__screen { position: absolute; inset: 2px; border-radius: 18px; overflow: hidden; background: #0a0a0a; display: flex; flex-direction: column; }
+    .em-phone__cam { height: 7px; background: #0a0a0a; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .em-phone__cam::after { content: ''; width: 4px; height: 4px; border-radius: 50%; background: #1a1a1a; }
+    .em-phone__story { flex: 1; position: relative; overflow: hidden; }
+    .em-phone__story img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+    .em-phone__scrim { position: absolute; top: 0; left: 0; right: 0; height: 55px; background: linear-gradient(to bottom, rgba(0,0,0,0.48) 0%, transparent 100%); z-index: 2; pointer-events: none; }
+    .em-phone__chrome { position: absolute; top: 0; left: 0; right: 0; z-index: 3; padding: 4px 7px 0; pointer-events: none; }
+    .em-phone__segs { display: flex; gap: 2px; margin-bottom: 3px; }
+    .em-phone__seg { flex: 1; height: 1px; background: rgba(255,255,255,0.22); border-radius: 1px; }
     .em-phone__seg--active { background: rgba(255,255,255,0.85); }
-    .em-phone img { width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none; }
+    .em-phone__ig-hd { display: flex; align-items: center; justify-content: space-between; }
+    .em-phone__av { width: 13px; height: 13px; border-radius: 50%; background: linear-gradient(135deg,#c8102e,#004e98); border: 1px solid rgba(255,255,255,0.88); flex-shrink: 0; }
+    .em-phone__hn { font-size: 5.5px; font-weight: 600; color: #fff; font-family: var(--font-body); margin-left: 2px; }
+    .em-phone__ts { font-size: 5px; color: rgba(255,255,255,0.42); font-family: var(--font-body); margin-left: 2px; }
+    .em-phone__close { font-size: 7px; color: rgba(255,255,255,0.7); line-height: 1; }
+    .em-phone__reply { flex-shrink: 0; background: #0a0a0a; padding: 5px 7px 3px; display: flex; align-items: center; gap: 4px; }
+    .em-phone__rpl { flex: 1; height: 17px; border: 1px solid rgba(255,255,255,0.18); border-radius: 999px; display: flex; align-items: center; padding: 0 6px; }
+    .em-phone__rpl-t { font-size: 5px; color: rgba(255,255,255,0.25); font-family: var(--font-body); }
+    .em-phone__heart { font-size: 10px; color: rgba(255,255,255,0.55); line-height: 1; }
+    .em-phone__send { font-size: 10px; color: rgba(255,255,255,0.55); line-height: 1; }
+    .em-phone__home { height: 9px; background: #0a0a0a; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .em-phone__home::after { content: ''; width: 28px; height: 1.5px; background: rgba(255,255,255,0.15); border-radius: 1px; }
     @media (max-width: 768px) {
       .em-section__inner { grid-template-columns: 1fr; gap: 2.5rem; }
       .em-section--alt .em-section__text { order: 1; }
       .em-section--alt .em-section__phones { order: 2; }
-      .em-phone { width: 80px; border-radius: 12px; }
-      .em-phone__island { width: 20px; height: 6px; top: 5px; }
+      .em-phone { width: 100px; height: 214px; border-radius: 16px; }
+      .em-phone::after { border-radius: 14px; }
+      .em-phone__screen { border-radius: 14px; }
       .em-section__title { font-size: 1.375rem; }
       .em-section__desc { font-size: 0.875rem; }
     }
@@ -1169,9 +1193,31 @@
               `<div class="em-phone__seg${imgIdx === featIdx ? ' em-phone__seg--active' : ''}"></div>`
             ).join('');
             return `<button class="em-phone ${offsetClass}" data-idx="${globalIdx}" aria-label="${img.label}">
-              <div class="em-phone__island"></div>
-              <div class="em-phone__stories">${segsHtml}</div>
-              <img src="${img.src}" alt="${img.label}" loading="lazy" decoding="async">
+              <div class="em-phone__b1"></div><div class="em-phone__b2"></div><div class="em-phone__b3"></div><div class="em-phone__pw"></div>
+              <div class="em-phone__screen">
+                <div class="em-phone__cam"></div>
+                <div class="em-phone__story">
+                  <img src="${img.src}" alt="${img.label}" loading="lazy" decoding="async">
+                  <div class="em-phone__scrim"></div>
+                  <div class="em-phone__chrome">
+                    <div class="em-phone__segs">${segsHtml}</div>
+                    <div class="em-phone__ig-hd">
+                      <div style="display:flex;align-items:center;">
+                        <div class="em-phone__av"></div>
+                        <span class="em-phone__hn">emirates</span>
+                        <span class="em-phone__ts"> · 3h</span>
+                      </div>
+                      <span class="em-phone__close">✕</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="em-phone__reply">
+                  <div class="em-phone__rpl"><span class="em-phone__rpl-t">Send message</span></div>
+                  <span class="em-phone__heart">♡</span>
+                  <span class="em-phone__send">➤</span>
+                </div>
+                <div class="em-phone__home"></div>
+              </div>
             </button>`;
           }).join('');
           return `<div class="em-section ${altClass}">
