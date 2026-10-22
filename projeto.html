@@ -704,7 +704,7 @@
     .em-gallery { background: #080808; }
     .em-section { border-top: 1px solid rgba(255,255,255,0.06); padding: 5rem 0; }
     .em-section:first-child { border-top: none; padding-top: 3.5rem; }
-    .em-section__inner { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2.5rem, 6vw, 5rem); align-items: center; max-width: var(--container, 1320px); margin: 0 auto; padding: 0 clamp(1.5rem, 5vw, 5rem); }
+    .em-section__inner { display: grid; grid-template-columns: 1fr 1.6fr; gap: clamp(2rem, 5vw, 4rem); align-items: center; max-width: var(--container, 1320px); margin: 0 auto; padding: 0 clamp(1.5rem, 5vw, 5rem); }
     .em-section--alt .em-section__text { order: 2; }
     .em-section--alt .em-section__phones { order: 1; }
     .em-section__meta { display: flex; align-items: center; gap: 1rem; margin-bottom: 0.875rem; }
@@ -715,18 +715,18 @@
     .em-section__all { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.8125rem; color: rgba(255,255,255,0.3); background: none; border: none; padding: 0; cursor: pointer; font-family: var(--font-body); letter-spacing: 0.01em; transition: color 0.2s ease; }
     .em-section__all:hover { color: rgba(255,255,255,0.65); }
     .em-section__phones { display: flex; justify-content: center; }
-    .em-phones { display: flex; gap: 12px; align-items: flex-end; }
+    .em-phones { display: flex; gap: 14px; align-items: flex-end; }
     /* iPhone device mockup */
-    .em-phone { width: 130px; height: 278px; position: relative; border-radius: 20px; background: #2e2e30; border: 1.5px solid #555; cursor: pointer; padding: 0; flex-shrink: 0; transition: filter 0.2s ease; }
+    .em-phone { width: 180px; height: 385px; position: relative; border-radius: 26px; background: #2e2e30; border: 1.5px solid #555; cursor: pointer; padding: 0; flex-shrink: 0; transition: filter 0.2s ease; }
     .em-phone:hover { filter: brightness(1.1); }
-    .em-phone--up { transform: translateY(-18px); }
-    .em-phone--down { transform: translateY(12px); }
-    .em-phone::after { content: ''; position: absolute; inset: 2px; border-radius: 18px; border: 1px solid rgba(0,0,0,0.6); pointer-events: none; z-index: 10; }
-    .em-phone__b1 { position: absolute; left: -2.5px; top: 46px; width: 2.5px; height: 13px; background: #4a4a4c; border-radius: 2px 0 0 2px; }
-    .em-phone__b2 { position: absolute; left: -2.5px; top: 65px; width: 2.5px; height: 22px; background: #4a4a4c; border-radius: 2px 0 0 2px; }
-    .em-phone__b3 { position: absolute; left: -2.5px; top: 94px; width: 2.5px; height: 22px; background: #4a4a4c; border-radius: 2px 0 0 2px; }
-    .em-phone__pw { position: absolute; right: -2.5px; top: 72px; width: 2.5px; height: 36px; background: #4a4a4c; border-radius: 0 2px 2px 0; }
-    .em-phone__screen { position: absolute; inset: 2px; border-radius: 18px; overflow: hidden; background: #0a0a0a; display: flex; flex-direction: column; }
+    .em-phone--up { transform: translateY(-22px); }
+    .em-phone--down { transform: translateY(14px); }
+    .em-phone::after { content: ''; position: absolute; inset: 2px; border-radius: 24px; border: 1px solid rgba(0,0,0,0.6); pointer-events: none; z-index: 10; }
+    .em-phone__b1 { position: absolute; left: -3px; top: 64px; width: 3px; height: 18px; background: #4a4a4c; border-radius: 2px 0 0 2px; }
+    .em-phone__b2 { position: absolute; left: -3px; top: 90px; width: 3px; height: 30px; background: #4a4a4c; border-radius: 2px 0 0 2px; }
+    .em-phone__b3 { position: absolute; left: -3px; top: 130px; width: 3px; height: 30px; background: #4a4a4c; border-radius: 2px 0 0 2px; }
+    .em-phone__pw { position: absolute; right: -3px; top: 100px; width: 3px; height: 50px; background: #4a4a4c; border-radius: 0 2px 2px 0; }
+    .em-phone__screen { position: absolute; inset: 2px; border-radius: 24px; overflow: hidden; background: #0a0a0a; display: flex; flex-direction: column; }
     .em-phone__cam { height: 7px; background: #0a0a0a; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
     .em-phone__cam::after { content: ''; width: 4px; height: 4px; border-radius: 50%; background: #1a1a1a; }
     .em-phone__story { flex: 1; position: relative; overflow: hidden; }
@@ -752,9 +752,9 @@
       .em-section__inner { grid-template-columns: 1fr; gap: 2.5rem; }
       .em-section--alt .em-section__text { order: 1; }
       .em-section--alt .em-section__phones { order: 2; }
-      .em-phone { width: 100px; height: 214px; border-radius: 16px; }
-      .em-phone::after { border-radius: 14px; }
-      .em-phone__screen { border-radius: 14px; }
+      .em-phone { width: 130px; height: 278px; border-radius: 20px; }
+      .em-phone::after { border-radius: 18px; }
+      .em-phone__screen { border-radius: 18px; }
       .em-section__title { font-size: 1.375rem; }
       .em-section__desc { font-size: 0.875rem; }
     }
@@ -940,7 +940,7 @@
       sport: { pt: 'UEFA Champions League', en: 'UEFA Champions League' },
       tag:   { pt: 'Futebol', en: 'Football' },
       count: '08',
-      featured: [0, 1, 5, 7],
+      featured: [0, 5, 7],
       desc: {
         pt: 'A jornada do Arsenal na Champions League 2025/26 — da fase de grupos ao título. Gráficos de boa sorte, buildup das semifinais e a celebração dos campeões. Arsenal vermelho com a precisão Emirates.',
         en: "Arsenal's run through the 2025/26 Champions League — group stage to the title. Good luck posts, semi-final builds, champion celebration. Arsenal red, Emirates precision."
@@ -974,7 +974,7 @@
       sport: { pt: 'Tênis', en: 'Tennis' },
       tag:   { pt: 'Tênis', en: 'Tennis' },
       count: '03',
-      featured: [0, 1, 2],
+      featured: [0, 2],
       desc: {
         pt: 'Roland Garros e Wimbledon — os dois Grand Slams mais icônicos do mundo. Mais Aryna Sabalenka, uma das maiores jogadoras do circuito. Tênis de alto nível, design à altura.',
         en: 'Roland Garros and Wimbledon — the two most iconic Grand Slams. Plus Aryna Sabalenka, one of the best players on tour. Top-level tennis, design to match.'
@@ -989,7 +989,7 @@
       sport: { pt: 'Mais Esportes', en: 'More Sports' },
       tag:   { pt: 'Multi-esporte', en: 'Multi-sport' },
       count: '07',
-      featured: [0, 1, 4, 3],
+      featured: [0, 4],
       desc: {
         pt: 'A parceria Emirates vai muito além do futebol. ICC T20, NBA All-Star, UAE Tour, Dubai World Cup, SailGP, Collingwood FC — presença global que o design precisa refletir.',
         en: 'The Emirates partnership goes far beyond football. ICC T20, NBA All-Star, UAE Tour, Dubai World Cup, SailGP, Collingwood FC — a global presence the design has to match.'
