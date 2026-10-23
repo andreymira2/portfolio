@@ -759,6 +759,41 @@
       .em-section__desc { font-size: 0.8125rem; }
     }
 
+    /* ─── MOTORSPORTS GALLERY (motorsports) ─── */
+    .mt-gallery { background: #080808; }
+    .mt-agency { max-width: var(--container, 1320px); margin: 0 auto; padding: 3rem clamp(1.5rem,5vw,5rem) 2.5rem; display: flex; align-items: center; gap: 2rem; border-bottom: 1px solid rgba(255,255,255,0.06); flex-wrap: wrap; }
+    .mt-agency__logo { height: 32px; width: auto; object-fit: contain; opacity: 0.9; filter: grayscale(0); }
+    .mt-agency__divider { width: 1px; height: 32px; background: rgba(255,255,255,0.12); flex-shrink: 0; }
+    .mt-agency__text { font-size: 0.85rem; color: rgba(255,255,255,0.38); line-height: 1.65; margin: 0; max-width: 580px; }
+    .mt-team { border-top: 1px solid rgba(255,255,255,0.06); padding: 4rem 0 1rem; }
+    .mt-team__head { max-width: var(--container, 1320px); margin: 0 auto; padding: 0 clamp(1.5rem,5vw,5rem) 2rem; display: flex; align-items: flex-start; gap: 1.75rem; }
+    .mt-team__logo-wrap { flex-shrink: 0; display: flex; align-items: center; justify-content: center; width: 64px; height: 64px; border-radius: 12px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); }
+    .mt-team__logo { height: 36px; width: auto; max-width: 52px; object-fit: contain; filter: grayscale(0); opacity: 0.9; }
+    .mt-team__info { flex: 1; }
+    .mt-team__comp { font-size: 0.6875rem; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255,255,255,0.4); font-family: var(--font-body); display: block; margin-bottom: 0.35rem; }
+    .mt-team__name { font-family: var(--font-display); font-size: clamp(1.5rem,3vw,2.25rem); font-weight: 700; color: var(--white); margin: 0 0 0.6rem; line-height: 1.1; }
+    .mt-team__desc { font-size: 0.9rem; color: rgba(255,255,255,0.45); line-height: 1.65; margin: 0; max-width: 640px; }
+    .mt-year { margin-top: 1.5rem; padding-bottom: 2.5rem; }
+    .mt-year__label { max-width: var(--container, 1320px); margin: 0 auto; padding: 0 clamp(1.5rem,5vw,5rem) 0.75rem; }
+    .mt-year__badge { font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.35); font-family: var(--font-body); border: 1px solid rgba(255,255,255,0.1); border-radius: 4px; padding: 0.2em 0.65em; }
+    .mt-row { position: relative; }
+    .mt-row::before, .mt-row::after { content: ''; position: absolute; top: 0; bottom: 8px; width: 50px; z-index: 5; pointer-events: none; }
+    .mt-row::before { left: 0; background: linear-gradient(to right, #080808, transparent); }
+    .mt-row::after { right: 0; background: linear-gradient(to left, #080808, transparent); }
+    .mt-track { display: flex; gap: 10px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding: 0 clamp(1.5rem,5vw,5rem) 8px; scroll-behavior: smooth; }
+    .mt-track::-webkit-scrollbar { display: none; }
+    .mt-card { flex: 0 0 auto; height: clamp(200px, 38vh, 340px); width: auto; aspect-ratio: 4/5; scroll-snap-align: start; border-radius: 10px; overflow: hidden; background: #111; cursor: pointer; border: none; padding: 0; transition: filter 0.2s ease, outline-color 0.15s; outline: 1.5px solid transparent; outline-offset: 2px; }
+    .mt-card:hover { filter: brightness(1.1); outline-color: rgba(255,255,255,0.3); }
+    .mt-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    @media (max-width: 768px) {
+      .mt-team__head { gap: 1.25rem; }
+      .mt-team__logo-wrap { width: 48px; height: 48px; }
+      .mt-team__logo { height: 26px; max-width: 40px; }
+      .mt-card { height: clamp(170px, 34vh, 260px); border-radius: 8px; }
+      .mt-team__name { font-size: 1.25rem; }
+      .mt-team__desc { font-size: 0.8125rem; }
+    }
+
     /* ─── EQUESTRIAN GALLERY (iron-dames-equestrian) ─── */
     .eq-gallery { background: #080808; padding: 2.5rem 0 4rem; }
     .eq-bubble-wrap {
@@ -931,6 +966,98 @@
     { src: BASE_EQ + '3 Days to go Mexico.png',        cat: 'special', label: '3 Days to Go — Mexico' },
     { src: BASE_EQ + 'NY_Teaser.png',                  cat: 'special', label: 'New York Teaser' },
     { src: BASE_EQ + 'Prague_Playoffs_4x5.png',        cat: 'special', label: 'Prague Playoffs' },
+  ];
+
+  /* ─── MOTORSPORTS — equipes por temporada ─── */
+  const BASE_MT = 'assets/projects/Motorsports/';
+  const MOTORSPORTS_SECTIONS = [
+    {
+      team: { pt: 'Fach Auto Tech', en: 'Fach Auto Tech' },
+      comp: { pt: 'ADAC GT Masters', en: 'ADAC GT Masters' },
+      logo: 'assets/clients/Fach Auto Tech.png',
+      desc: {
+        pt: 'ADAC GT Masters 2024 e 2025 — corridas nos melhores circuitos alemães. Conteúdo de mídia social para cada rodada da temporada.',
+        en: 'ADAC GT Masters 2024 and 2025 — racing across Germany\'s finest circuits. Social media content for every round of the season.'
+      },
+      years: [
+        {
+          year: '2024',
+          images: [
+            { src: BASE_MT + 'Fach auto tech 2024/ADAC - R1 - FAT - Feed.png', label: 'Round 1' },
+            { src: BASE_MT + 'Fach auto tech 2024/ADAC - R4 - FAT - Feed.png', label: 'Round 4' },
+            { src: BASE_MT + 'Fach auto tech 2024/ADAC - R6 - FAT - Feed.png', label: 'Round 6' },
+            { src: BASE_MT + 'Fach auto tech 2024/New Year Fach 9x16.png',     label: 'New Year' },
+          ]
+        },
+        {
+          year: '2025',
+          images: [
+            { src: BASE_MT + 'Fach auto tech 2025/Fach_ADAC_1_2025_FEED.psd.png', label: 'Round 1' },
+            { src: BASE_MT + 'Fach auto tech 2025/Fach_ADAC_2_2025_FEED.png',     label: 'Round 2' },
+            { src: BASE_MT + 'Fach auto tech 2025/Fach_ADAC_3_2025_FEED.png',     label: 'Round 3' },
+            { src: BASE_MT + 'Fach auto tech 2025/Fach_ADAC_4_2025_FEED.psd.png', label: 'Round 4' },
+            { src: BASE_MT + 'Fach auto tech 2025/Fach_ADAC_5_2025_FEED.png',     label: 'Round 5' },
+            { src: BASE_MT + 'Fach auto tech 2025/Fach_ADAC_6_2025_FEED.png',     label: 'Round 6' },
+          ]
+        }
+      ]
+    },
+    {
+      team: { pt: 'Herberth Motorsport', en: 'Herberth Motorsport' },
+      comp: { pt: 'GT Racing', en: 'GT Racing' },
+      logo: 'assets/clients/Heberth.png',
+      desc: {
+        pt: 'Campanhas visuais para a Herberth Motorsport em 2025 e 2026 — circuitos icônicos do GT europeu, incluindo Spa 24h, Paul Ricard e Nürburgring.',
+        en: 'Visual campaigns for Herberth Motorsport in 2025 and 2026 — iconic European GT circuits including Spa 24h, Paul Ricard and the Nürburgring.'
+      },
+      years: [
+        {
+          year: '2025',
+          images: [
+            { src: BASE_MT + 'Herberth Motorsports 2025/HM_Circuit Barcelona_4x5.png',        label: 'Circuit de Barcelona' },
+            { src: BASE_MT + 'Herberth Motorsports 2025/HM Circuit Paul Ricard 4x5.png',       label: 'Paul Ricard' },
+            { src: BASE_MT + 'Herberth Motorsports 2025/HM Monza 4x5.png',                     label: 'Monza' },
+            { src: BASE_MT + 'Herberth Motorsports 2025/HM_24HSpa_4x5.png',                    label: '24h Spa' },
+            { src: BASE_MT + 'Herberth Motorsports 2025/HM Circuit Paul Nürburgring 4x5.png',  label: 'Nürburgring' },
+            { src: BASE_MT + 'Herberth Motorsports 2025/HM Halloween_4x5.png',                 label: 'Halloween' },
+          ]
+        },
+        {
+          year: '2026',
+          images: [
+            { src: BASE_MT + 'Herberth Motorsports 2026/Race 1_Paul Ricard Circuit_4x5.png', label: 'Race 1 — Paul Ricard' },
+            { src: BASE_MT + 'Herberth Motorsports 2026/Race 2_Monza_4x5.png',               label: 'Race 2 — Monza' },
+            { src: BASE_MT + 'Herberth Motorsports 2026/Race 3_Spa 24h_4x5.png',             label: 'Race 3 — Spa 24h' },
+            { src: BASE_MT + 'Herberth Motorsports 2026/Race 4_Nurburgring_4x5.png',         label: 'Race 4 — Nürburgring' },
+            { src: BASE_MT + 'Herberth Motorsports 2026/Race 5_Potimão_4x5.png',             label: 'Race 5 — Portimão' },
+          ]
+        }
+      ]
+    },
+    {
+      team: { pt: 'Land-Motorsport', en: 'Land-Motorsport' },
+      comp: { pt: 'DTM', en: 'DTM' },
+      logo: 'assets/clients/Land Motorsport.png',
+      desc: {
+        pt: 'Temporada completa de DTM 2026 para a Land-Motorsport — 8 etapas, do Hockenheimring ao Zandvoort. Identidade visual consistente ao longo de toda a temporada.',
+        en: 'Full 2026 DTM season for Land-Motorsport — 8 rounds, from Hockenheimring to Zandvoort. Consistent visual identity across the entire season.'
+      },
+      years: [
+        {
+          year: '2026',
+          images: [
+            { src: BASE_MT + 'Land-Motorsport 2026/DTM 2026 LM_Hockenheimring.png', label: 'Hockenheimring' },
+            { src: BASE_MT + 'Land-Motorsport 2026/DTM 2026 LM_Lausitzring v2.png', label: 'Lausitzring' },
+            { src: BASE_MT + 'Land-Motorsport 2026/DTM 2026 LM_NÜRBURGRING.png',    label: 'Nürburgring' },
+            { src: BASE_MT + 'Land-Motorsport 2026/DTM 2026 LM_Norisring.png',      label: 'Norisring' },
+            { src: BASE_MT + 'Land-Motorsport 2026/DTM 2026 LM_OSCHERSLEBEN.png',   label: 'Oschersleben' },
+            { src: BASE_MT + 'Land-Motorsport 2026/DTM 2026 LM_Red Bull Ring.png',  label: 'Red Bull Ring' },
+            { src: BASE_MT + 'Land-Motorsport 2026/DTM 2026 LM_Sachsenring.png',    label: 'Sachsenring' },
+            { src: BASE_MT + 'Land-Motorsport 2026/DTM 2026 LM_Zandvoort.png',      label: 'Zandvoort' },
+          ]
+        }
+      ]
+    }
   ];
 
   /* ─── EMIRATES — seções por esporte ─── */
@@ -1164,8 +1291,9 @@
     }).join('');
 
     // Galerias customizadas por projeto
-    const isEquestrian = p.slug === 'iron-dames-equestrian';
-    const isEmirates   = p.slug === 'emirates';
+    const isEquestrian  = p.slug === 'iron-dames-equestrian';
+    const isEmirates    = p.slug === 'emirates';
+    const isMotorsports = p.slug === 'motorsports';
     const catLabels = { announcement: 'Eventos', team: 'Equipes', winner: 'Resultados', champion: 'Campeãs', rider: 'Rider do Mês', special: 'Especiais' };
     const eqTabsHtml = Object.entries(catLabels).map(([k, v]) => {
       const n = EQ_IMAGES.filter(i => i.cat === k).length;
@@ -1177,6 +1305,54 @@
           <div class="eq-bubble-grid" id="eqGrid"></div>
         </div>
       </section>`;
+
+    const mtAllImgs = isMotorsports ? MOTORSPORTS_SECTIONS.flatMap(t => t.years.flatMap(y => y.images)) : [];
+    const mtGalleryHtml = isMotorsports ? (() => {
+      let gIdx = 0;
+      const teamsHtml = MOTORSPORTS_SECTIONS.map((team, tIdx) => {
+        const yearsHtml = team.years.map((yr) => {
+          const trackId = 'mtTrack_' + tIdx + '_' + yr.year;
+          const cardsHtml = yr.images.map((img) => {
+            const cardIdx = gIdx++;
+            return `<button class="mt-card" data-idx="${cardIdx}" aria-label="${img.label}">
+              <img src="${img.src}" alt="${img.label}" loading="lazy" decoding="async">
+            </button>`;
+          }).join('');
+          return `<div class="mt-year">
+            <div class="mt-year__label"><span class="mt-year__badge">${yr.year}</span></div>
+            <div class="mt-row">
+              <button class="em-nav-btn em-nav-btn--prev" data-track="${trackId}" aria-label="${lang === 'pt' ? 'Anterior' : 'Previous'}" disabled>&#8249;</button>
+              <div class="mt-track" id="${trackId}">${cardsHtml}</div>
+              <button class="em-nav-btn em-nav-btn--next" data-track="${trackId}" aria-label="${lang === 'pt' ? 'Próximo' : 'Next'}">&#8250;</button>
+            </div>
+          </div>`;
+        }).join('');
+        return `<div class="mt-team">
+          <div class="mt-team__head">
+            <div class="mt-team__logo-wrap">
+              <img src="${team.logo}" alt="${team.team[lang]}" class="mt-team__logo">
+            </div>
+            <div class="mt-team__info">
+              <span class="mt-team__comp">${team.comp[lang]}</span>
+              <h2 class="mt-team__name">${team.team[lang]}</h2>
+              <p class="mt-team__desc">${team.desc[lang]}</p>
+            </div>
+          </div>
+          ${yearsHtml}
+        </div>`;
+      }).join('');
+      const agencyDesc = lang === 'pt'
+        ? 'Just Authentic é uma agência britânica especializada em marketing para motorsport. Os três clientes abaixo — Fach Auto Tech, Herberth Motorsport e Land-Motorsport — são equipes que competem nos maiores campeonatos GT e DTM da Europa.'
+        : 'Just Authentic is a UK-based motorsport marketing agency. The three clients below — Fach Auto Tech, Herberth Motorsport and Land-Motorsport — compete in Europe\'s premier GT and DTM championships.';
+      return `<section class="mt-gallery" id="mtGallery">
+        <div class="mt-agency">
+          <img src="assets/clients/Just Authentic.png" alt="Just Authentic" class="mt-agency__logo">
+          <div class="mt-agency__divider"></div>
+          <p class="mt-agency__text">${agencyDesc}</p>
+        </div>
+        ${teamsHtml}
+      </section>`;
+    })() : '';
 
     const emAllImgs = isEmirates ? EMIRATES_SECTIONS.flatMap(s => s.images) : [];
     const emGalleryHtml = isEmirates ? `
@@ -1255,7 +1431,7 @@
         </div>
       </section>
 
-      ${isEquestrian ? eqGalleryHtml : isEmirates ? emGalleryHtml : `<section class="project-gallery"><div class="project-gallery__grid">${gallery}</div></section>`}
+      ${isEquestrian ? eqGalleryHtml : isEmirates ? emGalleryHtml : isMotorsports ? mtGalleryHtml : `<section class="project-gallery"><div class="project-gallery__grid">${gallery}</div></section>`}
 
       <section class="project-nav">
         <div class="project-nav__grid">
@@ -1436,6 +1612,51 @@
           }
           track.addEventListener('scroll', updateNavBtns, { passive: true });
           // Run after images load to get correct scrollWidth
+          requestAnimationFrame(() => { updateLayout(); updateNavBtns(); });
+          window.addEventListener('resize', () => { updateLayout(); updateNavBtns(); });
+        });
+      }
+    }
+
+    // ─── Motorsports — galeria horizontal ───────
+    if (isMotorsports) {
+      lbImgs = mtAllImgs.map(img => img.src);
+      const mtGalleryEl = document.getElementById('mtGallery');
+      if (mtGalleryEl) {
+        mtGalleryEl.querySelectorAll('.mt-card').forEach(btn => {
+          btn.addEventListener('click', () => openLb(+btn.dataset.idx));
+          btn.addEventListener('mouseenter', () => {
+            if (cursorLabel) { cursorLabel.classList.add('is-visible'); document.body.classList.add('cursor-view-active'); }
+          });
+          btn.addEventListener('mouseleave', () => {
+            if (cursorLabel) { cursorLabel.classList.remove('is-visible'); document.body.classList.remove('cursor-view-active'); }
+          });
+        });
+        mtGalleryEl.querySelectorAll('.em-nav-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const track = document.getElementById(btn.dataset.track);
+            if (!track) return;
+            const card = track.querySelector('.mt-card');
+            const step = card ? (card.offsetWidth + 10) * 3 : 600;
+            track.scrollBy({ left: btn.classList.contains('em-nav-btn--next') ? step : -step, behavior: 'smooth' });
+          });
+        });
+        mtGalleryEl.querySelectorAll('.mt-track').forEach(track => {
+          const row = track.parentElement;
+          const btnPrev = row.querySelector('.em-nav-btn--prev');
+          const btnNext = row.querySelector('.em-nav-btn--next');
+          function updateLayout() {
+            const overflows = track.scrollWidth > track.clientWidth + 8;
+            track.style.justifyContent = overflows ? 'flex-start' : 'center';
+            btnPrev.style.display = overflows ? '' : 'none';
+            btnNext.style.display = overflows ? '' : 'none';
+          }
+          function updateNavBtns() {
+            if (track.scrollWidth <= track.clientWidth + 8) return;
+            btnPrev.disabled = track.scrollLeft < 8;
+            btnNext.disabled = track.scrollLeft + track.clientWidth >= track.scrollWidth - 8;
+          }
+          track.addEventListener('scroll', updateNavBtns, { passive: true });
           requestAnimationFrame(() => { updateLayout(); updateNavBtns(); });
           window.addEventListener('resize', () => { updateLayout(); updateNavBtns(); });
         });
