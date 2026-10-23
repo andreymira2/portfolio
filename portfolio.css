@@ -248,6 +248,7 @@ body.cursor-light #cursor-ring.is-hovering { background:rgba(255,255,255,0.08); 
   filter: grayscale(0);
   transform: scale(1.06);
 }
+.client-logo__img--boost { height: 58px; max-width: 200px; }
 @media (max-width: 600px) {
   .clients__grid { gap: 2rem 2.5rem; }
   .client-logo { height: 28px; }
