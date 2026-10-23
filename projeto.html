@@ -702,31 +702,34 @@
 
     /* ─── EMIRATES GALLERY (emirates) ─── */
     .em-gallery { background: #080808; }
-    .em-section { border-top: 1px solid rgba(255,255,255,0.06); padding: 5rem 0; }
-    .em-section:first-child { border-top: none; padding-top: 3.5rem; }
-    .em-section__inner { display: grid; grid-template-columns: 1fr 1.6fr; gap: clamp(2rem, 5vw, 4rem); align-items: center; max-width: var(--container, 1320px); margin: 0 auto; padding: 0 clamp(1.5rem, 5vw, 5rem); }
-    .em-section--alt .em-section__text { order: 2; }
-    .em-section--alt .em-section__phones { order: 1; }
-    .em-section__meta { display: flex; align-items: center; gap: 1rem; margin-bottom: 0.875rem; }
+    .em-section { border-top: 1px solid rgba(255,255,255,0.06); padding: 4rem 0; }
+    .em-section:first-child { border-top: none; padding-top: 3rem; }
+    .em-section__head { max-width: var(--container, 1320px); margin: 0 auto; padding: 0 clamp(1.5rem, 5vw, 5rem) 1.5rem; }
+    .em-section__meta { display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem; }
     .em-section__tag { font-size: 0.6875rem; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255,255,255,0.4); font-family: var(--font-body); }
     .em-section__count { font-size: 0.6875rem; letter-spacing: 0.12em; color: rgba(255,255,255,0.22); font-family: var(--font-body); }
-    .em-section__title { font-family: var(--font-display); font-size: clamp(1.75rem, 3.5vw, 2.5rem); font-weight: 700; color: var(--white); margin: 0 0 1rem; line-height: 1.1; }
-    .em-section__desc { font-size: 0.9375rem; color: rgba(255,255,255,0.5); line-height: 1.7; margin: 0 0 1.5rem; }
-    .em-section__all { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.8125rem; color: rgba(255,255,255,0.3); background: none; border: none; padding: 0; cursor: pointer; font-family: var(--font-body); letter-spacing: 0.01em; transition: color 0.2s ease; }
-    .em-section__all:hover { color: rgba(255,255,255,0.65); }
-    .em-section__phones { display: flex; justify-content: center; width: 100%; }
-    .em-phones { display: flex; gap: 14px; align-items: flex-end; width: 100%; }
+    .em-section__title { font-family: var(--font-display); font-size: clamp(1.5rem, 3vw, 2.25rem); font-weight: 700; color: var(--white); margin: 0 0 0.6rem; line-height: 1.1; }
+    .em-section__desc { font-size: 0.9rem; color: rgba(255,255,255,0.45); line-height: 1.65; margin: 0; max-width: 680px; }
+    .em-section__row { position: relative; }
+    .em-section__row::before, .em-section__row::after { content: ''; position: absolute; top: 0; bottom: 8px; width: 50px; z-index: 5; pointer-events: none; }
+    .em-section__row::before { left: 0; background: linear-gradient(to right, #080808, transparent); }
+    .em-section__row::after { right: 0; background: linear-gradient(to left, #080808, transparent); }
+    .em-phones-track { display: flex; gap: 10px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding: 1.5rem clamp(1.5rem, 5vw, 5rem) 8px; scroll-behavior: smooth; }
+    .em-phones-track::-webkit-scrollbar { display: none; }
+    .em-nav-btn { position: absolute; top: 50%; transform: translateY(calc(-50% - 4px)); width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15); color: #fff; font-size: 20px; line-height: 1; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.15s, opacity 0.15s; z-index: 10; backdrop-filter: blur(8px); }
+    .em-nav-btn:hover { background: rgba(255,255,255,0.22); }
+    .em-nav-btn--prev { left: 6px; }
+    .em-nav-btn--next { right: 6px; }
+    .em-nav-btn:disabled { opacity: 0.15; pointer-events: none; }
     /* iPhone device mockup */
-    .em-phone { flex: 1; min-width: 0; max-width: 280px; aspect-ratio: 180/385; height: auto; position: relative; border-radius: 26px; background: #2e2e30; border: 1.5px solid #555; cursor: pointer; padding: 0; transition: filter 0.2s ease; }
+    .em-phone { flex: 0 0 auto; width: 130px; scroll-snap-align: start; aspect-ratio: 180/385; height: auto; position: relative; border-radius: 16px; background: #2e2e30; border: 1.5px solid #555; cursor: pointer; padding: 0; transition: filter 0.2s ease; }
     .em-phone:hover { filter: brightness(1.1); }
-    .em-phone--up { transform: translateY(-22px); }
-    .em-phone--down { transform: translateY(14px); }
-    .em-phone::after { content: ''; position: absolute; inset: 2px; border-radius: 24px; border: 1px solid rgba(0,0,0,0.6); pointer-events: none; z-index: 10; }
+    .em-phone::after { content: ''; position: absolute; inset: 0; border-radius: 14.5px; border: 1px solid rgba(0,0,0,0.6); pointer-events: none; z-index: 10; }
     .em-phone__b1 { position: absolute; left: -3px; top: 64px; width: 3px; height: 18px; background: #4a4a4c; border-radius: 2px 0 0 2px; }
     .em-phone__b2 { position: absolute; left: -3px; top: 90px; width: 3px; height: 30px; background: #4a4a4c; border-radius: 2px 0 0 2px; }
     .em-phone__b3 { position: absolute; left: -3px; top: 130px; width: 3px; height: 30px; background: #4a4a4c; border-radius: 2px 0 0 2px; }
     .em-phone__pw { position: absolute; right: -3px; top: 100px; width: 3px; height: 50px; background: #4a4a4c; border-radius: 0 2px 2px 0; }
-    .em-phone__screen { position: absolute; inset: 0; border-radius: 24px; overflow: hidden; background: #0a0a0a; display: flex; flex-direction: column; }
+    .em-phone__screen { position: absolute; inset: 0; border-radius: 14.5px; overflow: hidden; background: #0a0a0a; display: flex; flex-direction: column; }
     .em-phone__cam { height: 7px; background: #0a0a0a; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
     .em-phone__cam::after { content: ''; width: 4px; height: 4px; border-radius: 50%; background: #1a1a1a; }
     .em-phone__story { flex: 1; position: relative; overflow: hidden; }
@@ -749,14 +752,11 @@
     .em-phone__home { height: 9px; background: #0a0a0a; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
     .em-phone__home::after { content: ''; width: 28px; height: 1.5px; background: rgba(255,255,255,0.15); border-radius: 1px; }
     @media (max-width: 768px) {
-      .em-section__inner { grid-template-columns: 1fr; gap: 2.5rem; }
-      .em-section--alt .em-section__text { order: 1; }
-      .em-section--alt .em-section__phones { order: 2; }
-      .em-phone { max-width: 160px; border-radius: 20px; }
-      .em-phone::after { border-radius: 18px; }
-      .em-phone__screen { border-radius: 18px; }
-      .em-section__title { font-size: 1.375rem; }
-      .em-section__desc { font-size: 0.875rem; }
+      .em-phone { width: 100px; border-radius: 12px; }
+      .em-phone::after { border-radius: 11px; }
+      .em-phone__screen { border-radius: 11px; }
+      .em-section__title { font-size: 1.25rem; }
+      .em-section__desc { font-size: 0.8125rem; }
     }
 
     /* ─── EQUESTRIAN GALLERY (iron-dames-equestrian) ─── */
@@ -1174,25 +1174,17 @@
       </section>`;
 
     const emAllImgs = isEmirates ? EMIRATES_SECTIONS.flatMap(s => s.images) : [];
-    const phoneOffsets = ['', 'em-phone--up', 'em-phone--down', 'em-phone--up'];
     const emGalleryHtml = isEmirates ? `
       <section class="em-gallery" id="emGallery">
         ${EMIRATES_SECTIONS.map((section, sIdx) => {
           const sectionStart = EMIRATES_SECTIONS.slice(0, sIdx).reduce((acc, s) => acc + s.images.length, 0);
-          const altClass = sIdx % 2 === 1 ? 'em-section--alt' : '';
-          const featured = section.featured || section.images.map((_, i) => i);
-          const viewAllText = lang === 'pt' ? `Ver todos os ${section.count} frames →` : `See all ${section.count} frames →`;
-          const viewAllBtn = section.images.length > featured.length
-            ? `<button class="em-section__all" data-section-start="${sectionStart}">${viewAllText}</button>`
-            : '';
-          const phonesHtml = featured.map((featIdx, pi) => {
-            const globalIdx = sectionStart + featIdx;
-            const img = section.images[featIdx];
-            const offsetClass = phoneOffsets[pi] || '';
+          const trackId = 'emTrack' + sIdx;
+          const phonesHtml = section.images.map((img, pi) => {
+            const globalIdx = sectionStart + pi;
             const segsHtml = section.images.map((_, imgIdx) =>
-              `<div class="em-phone__seg${imgIdx === featIdx ? ' em-phone__seg--active' : ''}"></div>`
+              `<div class="em-phone__seg${imgIdx === pi ? ' em-phone__seg--active' : ''}"></div>`
             ).join('');
-            return `<button class="em-phone ${offsetClass}" data-idx="${globalIdx}" aria-label="${img.label}">
+            return `<button class="em-phone" data-idx="${globalIdx}" aria-label="${img.label}">
               <div class="em-phone__b1"></div><div class="em-phone__b2"></div><div class="em-phone__b3"></div><div class="em-phone__pw"></div>
               <div class="em-phone__screen">
                 <div class="em-phone__cam"></div>
@@ -1220,20 +1212,19 @@
               </div>
             </button>`;
           }).join('');
-          return `<div class="em-section ${altClass}">
-            <div class="em-section__inner">
-              <div class="em-section__text">
-                <div class="em-section__meta">
-                  <span class="em-section__tag">${section.tag[lang]}</span>
-                  <span class="em-section__count">${section.count} assets</span>
-                </div>
-                <h2 class="em-section__title">${section.sport[lang]}</h2>
-                <p class="em-section__desc">${section.desc[lang]}</p>
-                ${viewAllBtn}
+          return `<div class="em-section">
+            <div class="em-section__head">
+              <div class="em-section__meta">
+                <span class="em-section__tag">${section.tag[lang]}</span>
+                <span class="em-section__count">${section.images.length} Stories</span>
               </div>
-              <div class="em-section__phones">
-                <div class="em-phones">${phonesHtml}</div>
-              </div>
+              <h2 class="em-section__title">${section.sport[lang]}</h2>
+              <p class="em-section__desc">${section.desc[lang]}</p>
+            </div>
+            <div class="em-section__row">
+              <button class="em-nav-btn em-nav-btn--prev" data-track="${trackId}" aria-label="${lang === 'pt' ? 'Anterior' : 'Previous'}" disabled>&#8249;</button>
+              <div class="em-phones-track" id="${trackId}">${phonesHtml}</div>
+              <button class="em-nav-btn em-nav-btn--next" data-track="${trackId}" aria-label="${lang === 'pt' ? 'Próximo' : 'Next'}">&#8250;</button>
             </div>
           </div>`;
         }).join('')}
@@ -1397,11 +1388,12 @@
       }
     }
 
-    // ─── Emirates — galeria editorial ──────────
+    // ─── Emirates — galeria horizontal ──────────
     if (isEmirates) {
       lbImgs = emAllImgs.map(img => img.src);
       const emGalleryEl = document.getElementById('emGallery');
       if (emGalleryEl) {
+        // Phone clicks → lightbox
         emGalleryEl.querySelectorAll('.em-phone').forEach(btn => {
           btn.addEventListener('click', () => openLb(+btn.dataset.idx));
           btn.addEventListener('mouseenter', () => {
@@ -1411,8 +1403,27 @@
             if (cursorLabel) { cursorLabel.classList.remove('is-visible'); document.body.classList.remove('cursor-view-active'); }
           });
         });
-        emGalleryEl.querySelectorAll('.em-section__all').forEach(btn => {
-          btn.addEventListener('click', () => openLb(+btn.dataset.sectionStart));
+        // Nav buttons scroll the track
+        emGalleryEl.querySelectorAll('.em-nav-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const track = document.getElementById(btn.dataset.track);
+            if (!track) return;
+            const ph = track.querySelector('.em-phone');
+            const step = ph ? (ph.offsetWidth + 10) * 3 : 420;
+            track.scrollBy({ left: btn.classList.contains('em-nav-btn--next') ? step : -step, behavior: 'smooth' });
+          });
+        });
+        // Enable/disable prev·next based on scroll position
+        emGalleryEl.querySelectorAll('.em-phones-track').forEach(track => {
+          const row = track.parentElement;
+          function updateNavBtns() {
+            const atStart = track.scrollLeft < 8;
+            const atEnd = track.scrollLeft + track.clientWidth >= track.scrollWidth - 8;
+            row.querySelector('.em-nav-btn--prev').disabled = atStart;
+            row.querySelector('.em-nav-btn--next').disabled = atEnd;
+          }
+          track.addEventListener('scroll', updateNavBtns, { passive: true });
+          updateNavBtns();
         });
       }
     }
