@@ -722,14 +722,14 @@
     .em-nav-btn--next { right: 6px; }
     .em-nav-btn:disabled { opacity: 0.15; pointer-events: none; }
     /* iPhone device mockup */
-    .em-phone { flex: 0 0 auto; width: 130px; scroll-snap-align: start; aspect-ratio: 180/385; height: auto; position: relative; border-radius: 16px; background: #2e2e30; border: 1.5px solid #555; cursor: pointer; padding: 0; transition: filter 0.2s ease; }
+    .em-phone { flex: 0 0 auto; height: clamp(280px, 52vh, 460px); width: auto; aspect-ratio: 180/385; scroll-snap-align: start; position: relative; border-radius: 22px; background: #2e2e30; border: 1.5px solid #555; cursor: pointer; padding: 0; transition: filter 0.2s ease; }
     .em-phone:hover { filter: brightness(1.1); }
-    .em-phone::after { content: ''; position: absolute; inset: 0; border-radius: 14.5px; border: 1px solid rgba(0,0,0,0.6); pointer-events: none; z-index: 10; }
+    .em-phone::after { content: ''; position: absolute; inset: 0; border-radius: 20.5px; border: 1px solid rgba(0,0,0,0.6); pointer-events: none; z-index: 10; }
     .em-phone__b1 { position: absolute; left: -3px; top: 64px; width: 3px; height: 18px; background: #4a4a4c; border-radius: 2px 0 0 2px; }
     .em-phone__b2 { position: absolute; left: -3px; top: 90px; width: 3px; height: 30px; background: #4a4a4c; border-radius: 2px 0 0 2px; }
     .em-phone__b3 { position: absolute; left: -3px; top: 130px; width: 3px; height: 30px; background: #4a4a4c; border-radius: 2px 0 0 2px; }
     .em-phone__pw { position: absolute; right: -3px; top: 100px; width: 3px; height: 50px; background: #4a4a4c; border-radius: 0 2px 2px 0; }
-    .em-phone__screen { position: absolute; inset: 0; border-radius: 14.5px; overflow: hidden; background: #0a0a0a; display: flex; flex-direction: column; }
+    .em-phone__screen { position: absolute; inset: 0; border-radius: 20.5px; overflow: hidden; background: #0a0a0a; display: flex; flex-direction: column; }
     .em-phone__cam { height: 7px; background: #0a0a0a; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
     .em-phone__cam::after { content: ''; width: 4px; height: 4px; border-radius: 50%; background: #1a1a1a; }
     .em-phone__story { flex: 1; position: relative; overflow: hidden; }
@@ -752,9 +752,9 @@
     .em-phone__home { height: 9px; background: #0a0a0a; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
     .em-phone__home::after { content: ''; width: 28px; height: 1.5px; background: rgba(255,255,255,0.15); border-radius: 1px; }
     @media (max-width: 768px) {
-      .em-phone { width: 100px; border-radius: 12px; }
-      .em-phone::after { border-radius: 11px; }
-      .em-phone__screen { border-radius: 11px; }
+      .em-phone { height: clamp(240px, 45vh, 340px); border-radius: 16px; }
+      .em-phone::after { border-radius: 14.5px; }
+      .em-phone__screen { border-radius: 14.5px; }
       .em-section__title { font-size: 1.25rem; }
       .em-section__desc { font-size: 0.8125rem; }
     }
@@ -1413,17 +1413,26 @@
             track.scrollBy({ left: btn.classList.contains('em-nav-btn--next') ? step : -step, behavior: 'smooth' });
           });
         });
-        // Enable/disable prev·next based on scroll position
+        // Handle layout: center when all phones fit, show nav when overflow
         emGalleryEl.querySelectorAll('.em-phones-track').forEach(track => {
           const row = track.parentElement;
+          const btnPrev = row.querySelector('.em-nav-btn--prev');
+          const btnNext = row.querySelector('.em-nav-btn--next');
+          function updateLayout() {
+            const overflows = track.scrollWidth > track.clientWidth + 8;
+            track.style.justifyContent = overflows ? 'flex-start' : 'center';
+            btnPrev.style.display = overflows ? '' : 'none';
+            btnNext.style.display = overflows ? '' : 'none';
+          }
           function updateNavBtns() {
-            const atStart = track.scrollLeft < 8;
-            const atEnd = track.scrollLeft + track.clientWidth >= track.scrollWidth - 8;
-            row.querySelector('.em-nav-btn--prev').disabled = atStart;
-            row.querySelector('.em-nav-btn--next').disabled = atEnd;
+            if (track.scrollWidth <= track.clientWidth + 8) return;
+            btnPrev.disabled = track.scrollLeft < 8;
+            btnNext.disabled = track.scrollLeft + track.clientWidth >= track.scrollWidth - 8;
           }
           track.addEventListener('scroll', updateNavBtns, { passive: true });
-          updateNavBtns();
+          // Run after images load to get correct scrollWidth
+          requestAnimationFrame(() => { updateLayout(); updateNavBtns(); });
+          window.addEventListener('resize', () => { updateLayout(); updateNavBtns(); });
         });
       }
     }
